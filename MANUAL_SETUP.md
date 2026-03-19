@@ -111,8 +111,12 @@ Create `~/.claude/hooks.json`:
 ## Step 7: Install gstack Skills
 
 ```bash
-# Clone gstack (or get it from the official source)
-git clone <gstack-repo-url> ~/.claude/skills/gstack
+# Clone gstack from GitHub
+git clone https://github.com/garrytan/gstack ~/.claude/skills/gstack
+
+# Install dependencies
+cd ~/.claude/skills/gstack
+bun install 2>/dev/null || npm install
 
 # Or if you have it locally
 ln -s /path/to/gstack ~/.claude/skills/gstack

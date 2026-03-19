@@ -27,7 +27,10 @@ A collection of high-leverage automation workflows:
 - `/browse` - Headless browser testing
 - `/retro` - Engineering retrospectives
 
-**Getting gstack**: Check Claude Code skill marketplace or community repositories
+**GitHub**: https://github.com/garrytan/gstack
+**Installation**: `git clone https://github.com/garrytan/gstack ~/.claude/skills/gstack`
+**Author**: Garry Tan
+**Documentation**: See repository README for setup and usage
 
 ### conversation-recorder
 - **Purpose**: Auto-saves conversations for later resume

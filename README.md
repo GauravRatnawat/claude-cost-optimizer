@@ -64,7 +64,10 @@ Pre-built workflows that replace hours of manual work:
 - `/browse` - Headless browser testing
 - `/retro` - Weekly retrospectives
 
-**Note**: gstack is optional but highly recommended. See [docs/GSTACK_INSTALL.md](./docs/GSTACK_INSTALL.md) for installation instructions. The cost optimizer works well without it, but gstack can double your savings.
+**Source**: https://github.com/garrytan/gstack
+**Install**: `git clone https://github.com/garrytan/gstack ~/.claude/skills/gstack`
+
+**Note**: gstack is optional but highly recommended. See [docs/GSTACK_INSTALL.md](./docs/GSTACK_INSTALL.md) for detailed installation instructions. The cost optimizer works well without it, but gstack can double your savings.
 
 ### 5. GitNexus (Intelligent Navigation)
 - Graph-powered code intelligence

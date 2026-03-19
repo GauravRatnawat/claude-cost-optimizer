@@ -4,13 +4,18 @@ gstack provides high-leverage automation workflows that significantly reduce Cla
 
 ## What is gstack?
 
-gstack is a collection of automation skills for Claude Code:
+gstack is a collection of automation skills for Claude Code created by Garry Tan.
 
+**Repository**: https://github.com/garrytan/gstack
+
+**Skills included:**
 - **/review** - Automated PR reviews (catches security issues, code quality problems)
 - **/qa** - Systematic QA testing with diff-aware mode
 - **/ship** - Complete ship workflow (merge, test, changelog, commit, push, PR)
 - **/browse** - Headless browser testing (~100ms per command)
 - **/retro** - Weekly engineering retrospectives
+- **/plan-ceo-review** - CEO-level project planning
+- **/plan-eng-review** - Engineering planning review
 
 Each skill replaces 50-100+ queries with a single command.
 
@@ -27,38 +32,55 @@ ls ~/.claude/skills/gstack
 # If found, you're already set!
 ```
 
-### Method 2: Install from Official Source
+### Method 2: Install from GitHub (Recommended)
 
-**Note**: As of this writing, gstack may be:
-- Part of the Claude Code official skills marketplace
-- Available as a separate repository
-- Included in Claude Code enterprise/team plans
+gstack is available as an open-source project on GitHub.
 
-Check these locations:
-
-#### Option A: Claude Code Skill Marketplace
+**Quick Install:**
 ```bash
-# In a Claude session
-> /install gstack
+# Clone directly to Claude skills directory
+git clone https://github.com/garrytan/gstack ~/.claude/skills/gstack
 
-# Or via CLI
-claude skills install gstack
+# Install dependencies (gstack uses bun or npm)
+cd ~/.claude/skills/gstack
+bun install 2>/dev/null || npm install
+
+# Verify installation
+ls -la ~/.claude/skills/gstack/
+# Should see: review/, qa/, ship/, browse/, retro/, etc.
 ```
 
-#### Option B: GitHub (if available)
+#### Option B: Install from GitHub
 ```bash
-# Check for official repository
-# Replace URL with actual gstack repo when available
-git clone https://github.com/anthropics/gstack ~/.claude/skills/gstack
+# Clone gstack from official repository
+git clone https://github.com/garrytan/gstack ~/.claude/skills/gstack
+
+# Navigate to gstack directory
+cd ~/.claude/skills/gstack
+
+# Install dependencies (if needed)
+npm install 2>/dev/null || bun install 2>/dev/null || true
+
+# Verify installation
+ls -la ~/.claude/skills/gstack/
 ```
 
-#### Option C: Request Access
-Some automation skills may require:
-- Claude Code Pro/Enterprise subscription
-- Early access program enrollment
-- Beta tester status
+**Source**: https://github.com/garrytan/gstack
 
-Contact Anthropic support or check claude.ai for availability.
+#### Option B: Alternative Installation Locations
+
+If you prefer a different location:
+```bash
+# Clone to your preferred directory
+git clone https://github.com/garrytan/gstack ~/gstack
+
+# Then link to Claude skills
+ln -s ~/gstack ~/.claude/skills/gstack
+
+# Or clone to a project directory
+git clone https://github.com/garrytan/gstack /path/to/your/projects/gstack
+ln -s /path/to/your/projects/gstack ~/.claude/skills/gstack
+```
 
 ### Method 3: Create Your Own Skills
 
@@ -223,12 +245,23 @@ Build custom Model Context Protocol servers for your workflows
 
 ## Stay Updated
 
-gstack availability and installation methods may change:
+Keep gstack up to date:
 
-- Check Claude Code documentation: https://docs.anthropic.com
-- Follow Claude Code updates: https://github.com/anthropics/claude-code
-- Join Claude community discussions
-- Subscribe to Anthropic announcements
+```bash
+# Navigate to gstack directory
+cd ~/.claude/skills/gstack
+
+# Pull latest changes
+git pull origin main
+
+# Update dependencies
+bun install 2>/dev/null || npm install
+```
+
+**Watch for updates:**
+- Star the repository: https://github.com/garrytan/gstack
+- Watch releases on GitHub
+- Follow @garrytan on Twitter for announcements
 
 ## Need Help?
 
