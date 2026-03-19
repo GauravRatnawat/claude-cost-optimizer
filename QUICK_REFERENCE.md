@@ -88,16 +88,17 @@ gitnexus rebuild              # Rebuild code graph
 }
 ```
 
-## Expected Savings
+## Potential Optimizations
 
-| Optimization | Cost Reduction |
-|-------------|----------------|
-| opusplan model | 60% on execution |
-| gstack skills | 30-40% fewer queries |
-| Voice-to-text | 20-30% fewer iterations |
-| Conversation recording | 15-20% context savings |
-| **Copilot + Claude combo** | **80%** (use Copilot for simple tasks) |
-| **Total (Claude only)** | **70%** |
+| Strategy | Impact |
+|---------|--------|
+| Model selection | Opus→Sonnet saves ~70% per query |
+| Task automation | Reuse instead of re-query |
+| Voice-to-text | Clearer prompts = fewer iterations |
+| Context preservation | Stop re-explaining |
+| Copilot for simple tasks | Flat $10/mo for boilerplate |
+
+**Your savings depend on your usage patterns. Track first, optimize second.**
 
 ### GitHub Copilot (Complementary)
 - Free: $0 (2,000 completions/month)

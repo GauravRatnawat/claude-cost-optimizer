@@ -1,6 +1,8 @@
 # Claude Code Cost Optimizer Setup
 
-A complete setup for running Claude Code with 70% cost reduction while maintaining (or improving) productivity.
+A complete setup for dramatically reducing Claude Code API costs while maintaining (or improving) productivity.
+
+**My results:** $10K/month → $2.5K/month (75% reduction). Your mileage will vary.
 
 ## 🎯 What You'll Get
 
@@ -12,12 +14,14 @@ A complete setup for running Claude Code with 70% cost reduction while maintaini
 - **Automatic conversation persistence**
 - **Pre-authorized commands** for common operations
 
-## 📊 Expected Results
+## 📊 What You Get
 
-- **70% lower API costs** (typical: $180/day → $65/day at same workload)
-- **10x faster shipping** with automated workflows
-- **Better code quality** with automated reviews
-- **Complete spending visibility** with real-time monitoring
+- **Smart model selection** - Use expensive models only when needed
+- **Real-time cost visibility** - Know what you're spending as you work
+- **Workflow automation** - Stop repeating the same queries
+- **Better resource allocation** - Right tool for the right task
+
+**Results vary by usage.** Track your baseline first, optimize second.
 
 ## 💡 Complementary Tool: GitHub Copilot
 
@@ -203,7 +207,7 @@ MIT
 
 ## 🙏 Credits
 
-Setup inspired by real-world Claude Code usage optimizations that achieved 70% cost reduction.
+Setup based on real-world optimization of heavy Claude Code usage. Your results will depend on your usage patterns.
 
 ---
 
