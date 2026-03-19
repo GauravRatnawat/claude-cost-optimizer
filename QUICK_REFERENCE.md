@@ -94,7 +94,14 @@ gitnexus rebuild              # Rebuild code graph
 | gstack skills | 30-40% fewer queries |
 | Voice-to-text | 20-30% fewer iterations |
 | Conversation recording | 15-20% context savings |
-| **Total** | **70%** |
+| **Copilot + Claude combo** | **80%** (use Copilot for simple tasks) |
+| **Total (Claude only)** | **70%** |
+
+### GitHub Copilot (Complementary)
+- Free: $0 (2,000 completions/month)
+- Pro: $10/month
+- Use for: Simple completions, boilerplate
+- Use Claude for: Complex reasoning, multi-file changes
 
 ## Troubleshooting
 

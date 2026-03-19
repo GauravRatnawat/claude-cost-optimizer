@@ -19,6 +19,21 @@ A complete setup for running Claude Code with 70% cost reduction while maintaini
 - **Better code quality** with automated reviews
 - **Complete spending visibility** with real-time monitoring
 
+## 💡 Complementary Tool: GitHub Copilot
+
+For **additional cost savings**, combine with [GitHub Copilot](https://github.com/features/copilot):
+- **Use Copilot for**: Simple completions, boilerplate code, single-file edits
+- **Use Claude Code for**: Complex reasoning, multi-file changes, architecture decisions
+- **Pricing**: Free tier available, Pro at $10/month (vs variable Claude Code costs)
+- **Strategy**: Let Copilot handle routine tasks, reserve Claude Code for complex work
+
+This **dual-tool approach** can reduce Claude Code usage by 40-60% while maintaining productivity.
+
+**Sources**:
+- [GitHub Copilot Pricing 2026](https://github.com/features/copilot/plans)
+- [Claude Code vs GitHub Copilot Comparison](https://www.sitepoint.com/github-copilot-vs-claude-code-accuracy-speed-2026/)
+- [Pricing Analysis 2026](https://modelslab.com/blog/api/github-copilot-vs-cursor-claude-code-pricing-2026)
+
 ## 🚀 Quick Start
 
 ```bash
@@ -201,3 +216,4 @@ Setup inspired by real-world Claude Code usage optimizations that achieved 70% c
 - [docs/VOICE_TO_TEXT.md](./docs/VOICE_TO_TEXT.md) - Voice input for faster prompts
 - [docs/GSTACK_INSTALL.md](./docs/GSTACK_INSTALL.md) - Installing automation skills
 - [docs/CREATING_SKILLS.md](./docs/CREATING_SKILLS.md) - Create your own skills
+- [docs/COPILOT_INTEGRATION.md](./docs/COPILOT_INTEGRATION.md) - Use Copilot + Claude together
