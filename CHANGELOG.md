@@ -35,6 +35,15 @@ Complete setup system for optimizing Claude Code costs.
 - templates/settings.local.json - Permission presets
 - templates/hooks.json - GitNexus integration
 
+### Tool Attribution
+
+All third-party tools properly attributed with GitHub links:
+- **claudetop**: https://github.com/GauravRatnawat/claudetop (by Gaurav Ratnawat)
+- **GitNexus**: https://github.com/abhigyanpatwari/GitNexus (by Abhigyan Patwari)
+- **gstack**: https://github.com/garrytan/gstack (by Garry Tan)
+- **Handy**: https://github.com/handy-app/handy (open source)
+- **GitHub Copilot**: https://github.com/features/copilot (by GitHub)
+
 ### Code Review Fixes (2026-03-19)
 
 #### Critical Issues Resolved

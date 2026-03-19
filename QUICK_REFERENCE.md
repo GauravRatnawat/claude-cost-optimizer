@@ -12,11 +12,13 @@ git clone https://github.com/YOUR-USERNAME/claude-cost-optimizer.git && cd claud
 **claudetop** (Cost Monitoring)
 ```bash
 npm install -g claudetop
+# GitHub: https://github.com/GauravRatnawat/claudetop
 ```
 
 **GitNexus** (Code Intelligence)
 ```bash
 npm install -g gitnexus
+# GitHub: https://github.com/abhigyanpatwari/GitNexus
 ```
 
 **gstack** (Automation Skills)
@@ -131,8 +133,9 @@ cat ~/.claude/settings.json
 - **This Project**: https://github.com/YOUR-USERNAME/claude-cost-optimizer
 - **gstack**: https://github.com/garrytan/gstack
 - **Handy**: https://github.com/handy-app/handy
-- **claudetop**: `npm info claudetop`
-- **GitNexus**: `npm info gitnexus`
+- **claudetop**: https://github.com/GauravRatnawat/claudetop
+- **GitNexus**: https://github.com/abhigyanpatwari/GitNexus
+- **GitHub Copilot**: https://github.com/features/copilot
 
 ## Cost Goals
 

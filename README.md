@@ -64,7 +64,8 @@ cd claude-cost-optimizer
 - Real-time token usage dashboard
 - Daily/weekly cost tracking
 - Burn rate alerts
-- Install: `npm install -g claudetop`
+- **GitHub**: https://github.com/GauravRatnawat/claudetop
+- **Install**: `npm install -g claudetop`
 
 ### 3. Conductor (Workspace Management)
 - Isolated workspaces per project
@@ -87,7 +88,8 @@ Pre-built workflows that replace hours of manual work:
 ### 5. GitNexus (Intelligent Navigation)
 - Graph-powered code intelligence
 - Pre-hooks for smart file/code search
-- Install: `npm install -g gitnexus`
+- **GitHub**: https://github.com/abhigyanpatwari/GitNexus
+- **Install**: `npm install -g gitnexus`
 
 ### 6. conversation-recorder
 - Auto-saves conversations for resume

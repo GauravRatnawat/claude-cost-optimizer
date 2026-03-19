@@ -234,11 +234,13 @@ cat ~/.claude/settings.json
 
 **Claude Code:**
 ```bash
-# Daily cost check
+# Daily cost check (using claudetop)
 claudetop --today
 
 # Weekly breakdown
 claudetop --days 7
+
+# claudetop: https://github.com/GauravRatnawat/claudetop
 ```
 
 ### Target Metrics

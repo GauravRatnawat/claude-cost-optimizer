@@ -8,14 +8,18 @@
 - **GitHub**: https://github.com/anthropics/claude-code (if public)
 
 ### claudetop
+- **GitHub**: https://github.com/GauravRatnawat/claudetop
 - **Installation**: `npm install -g claudetop`
 - **Purpose**: Real-time cost monitoring and token analytics
-- **Author**: Community tool for Claude Code cost tracking
+- **Author**: Gaurav Ratnawat
+- **Features**: Daily summaries, burn rate alerts, JSON export
 
 ### GitNexus
+- **GitHub**: https://github.com/abhigyanpatwari/GitNexus
 - **Installation**: `npm install -g gitnexus`
 - **Purpose**: Graph-powered code intelligence
-- **Documentation**: Check npm page or GitHub repository
+- **Author**: Abhigyan Patwari
+- **Features**: Architecture exploration, blast radius analysis, dependency tracking
 
 ## Skills & Plugins
 
