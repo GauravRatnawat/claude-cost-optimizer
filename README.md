@@ -37,12 +37,8 @@ This **dual-tool approach** can reduce Claude Code usage by 40-60% while maintai
 ## 🚀 Quick Start
 
 ```bash
-# Download or clone this setup
-# Option 1: Clone from GitHub (after you publish it)
-# git clone https://github.com/YOUR-USERNAME/claude-cost-optimizer.git
-
-# Option 2: Download and extract ZIP
-# Then navigate to the directory
+# Clone this setup
+git clone https://github.com/GauravRatnawat/claude-cost-optimizer.git
 cd claude-cost-optimizer
 
 # Run the automated setup

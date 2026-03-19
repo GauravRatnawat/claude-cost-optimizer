@@ -4,7 +4,7 @@
 
 ### Complete Setup (Automated)
 ```bash
-git clone https://github.com/YOUR-USERNAME/claude-cost-optimizer.git && cd claude-cost-optimizer && ./setup.sh
+git clone https://github.com/GauravRatnawat/claude-cost-optimizer.git && cd claude-cost-optimizer && ./setup.sh
 ```
 
 ### Individual Tools
@@ -130,7 +130,7 @@ cat ~/.claude/settings.json
 
 ## Links
 
-- **This Project**: https://github.com/YOUR-USERNAME/claude-cost-optimizer
+- **This Project**: https://github.com/GauravRatnawat/claude-cost-optimizer
 - **gstack**: https://github.com/garrytan/gstack
 - **Handy**: https://github.com/handy-app/handy
 - **claudetop**: https://github.com/GauravRatnawat/claudetop
