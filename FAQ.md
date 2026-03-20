@@ -265,6 +265,27 @@ claudetop --json | jq '.sessions[].tool_usage'
 
 This shows which tools consume the most tokens.
 
+### Q: Can specialized agent personas help reduce costs?
+
+**A:** Yes! Using role-specific agents can reduce costs by:
+- **Better first-time results** - Specialized personas give more accurate responses
+- **Fewer iterations** - Role-appropriate context reduces back-and-forth
+- **Focused prompts** - Less token waste on irrelevant context
+
+**agency-agents** provides 100+ pre-built personas (engineers, designers, QA testers, etc.):
+- **GitHub**: https://github.com/msitarzewski/agency-agents
+- **Integration**: Works natively with Claude Code
+- **Usage**: Copy persona files to your project or `~/.claude/` directory
+- **Cost impact**: 10-20% additional savings through better-targeted prompts
+
+Example personas:
+- Frontend/backend developers with specific tech stacks
+- QA testers for different testing types
+- DevOps engineers for infrastructure tasks
+- Marketing specialists for content creation
+
+This is an **optional enhancement** - your core cost optimizer works great without it!
+
 ---
 
 **More questions?** Open an issue on GitHub or check the discussions.

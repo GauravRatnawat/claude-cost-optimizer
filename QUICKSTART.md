@@ -200,6 +200,11 @@ claude
 /ship     # Ship feature
 /browse   # Test with browser
 /retro    # Weekly retrospective
+
+# code-review-graph skills (if installed):
+/review-delta  # Review only changes since last commit
+/review-pr     # Review PR with blast-radius analysis
+/build-graph   # Build/update code knowledge graph
 ```
 
 ### Weekly Commands

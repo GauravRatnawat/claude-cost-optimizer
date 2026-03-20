@@ -21,6 +21,13 @@
 - **Author**: Abhigyan Patwari
 - **Features**: Architecture exploration, blast radius analysis, dependency tracking
 
+### code-review-graph
+- **GitHub**: https://github.com/tirth8205/code-review-graph
+- **Installation**: MCP server integration
+- **Purpose**: AI-powered code review with knowledge graph analysis
+- **Author**: Tirth Patel
+- **Features**: Impact radius analysis, delta reviews, PR reviews, semantic search, structural context
+
 ## Skills & Plugins
 
 ### gstack (Automation Skills)
@@ -56,6 +63,29 @@ A collection of high-leverage automation workflows:
 - **Purpose**: Guides usage of GitNexus MCP tools
 - **Features**: Architecture exploration, blast radius analysis, safe refactoring
 - **Documentation**: Included with GitNexus installation
+
+## Advanced Tools (Optional)
+
+### agency-agents
+- **GitHub**: https://github.com/msitarzewski/agency-agents
+- **Purpose**: Specialized AI agent personas for role-specific tasks
+- **Installation**: Copy persona files to project or `~/.claude/` directory
+- **Author**: Marcin Sitarzewski
+- **Personas Available**: 100+ pre-built agents across multiple domains
+  - **Engineering** (20+): Frontend/backend developers, DevOps, security engineers
+  - **Design** (8): UI/UX designers, brand strategists, visual designers
+  - **Marketing** (28+): Social media specialists, SEO experts, content creators
+  - **Sales** (8): Outbound strategists, deal closers, proposal writers
+  - **Testing** (8): QA testers, accessibility auditors, performance testers
+  - **Product/Project**: Sprint managers, trend researchers, producers
+  - **Specialized** (20+): Blockchain auditors, MCP builders, compliance experts
+- **Cost Impact**: 10-20% additional savings through better-targeted prompts
+- **Benefits**:
+  - More accurate first-time responses
+  - Fewer clarification iterations
+  - Role-appropriate technical context
+  - Reduced token waste on generic responses
+- **Integration**: Native Claude Code support, also works with Cursor, Aider, Windsurf
 
 ## Workspace Management
 

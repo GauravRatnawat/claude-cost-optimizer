@@ -21,6 +21,12 @@ npm install -g gitnexus
 # GitHub: https://github.com/abhigyanpatwari/GitNexus
 ```
 
+**code-review-graph** (MCP Server)
+```bash
+# GitHub: https://github.com/tirth8205/code-review-graph
+# Install as MCP server - see repo for setup
+```
+
 **gstack** (Automation Skills)
 ```bash
 git clone https://github.com/garrytan/gstack ~/.claude/skills/gstack
@@ -136,6 +142,8 @@ cat ~/.claude/settings.json
 - **Handy**: https://github.com/handy-app/handy
 - **claudetop**: https://github.com/GauravRatnawat/claudetop
 - **GitNexus**: https://github.com/abhigyanpatwari/GitNexus
+- **code-review-graph**: https://github.com/tirth8205/code-review-graph
+- **agency-agents**: https://github.com/msitarzewski/agency-agents (optional personas)
 - **GitHub Copilot**: https://github.com/features/copilot
 
 ## Cost Goals

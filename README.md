@@ -91,11 +91,18 @@ Pre-built workflows that replace hours of manual work:
 - **GitHub**: https://github.com/abhigyanpatwari/GitNexus
 - **Install**: `npm install -g gitnexus`
 
-### 6. conversation-recorder
+### 6. code-review-graph (MCP Server)
+- AI-powered code review with knowledge graph
+- Impact radius analysis for blast-radius detection
+- Delta reviews and PR reviews with structural context
+- **GitHub**: https://github.com/tirth8205/code-review-graph
+- **Install**: See repository for MCP server setup
+
+### 7. conversation-recorder
 - Auto-saves conversations for resume
 - Eliminates context re-explanation
 
-### 7. Handy (Voice-to-Text) - Open Source
+### 8. Handy (Voice-to-Text) - Open Source
 - Speak your prompts instead of typing (3x faster than typing)
 - Faster input = faster iterations
 - Better for complex explanations, fewer clarifications
@@ -103,10 +110,24 @@ Pre-built workflows that replace hours of manual work:
 - Download from Mac App Store or https://handy.app
 - Free and privacy-focused (local processing)
 
-### 8. Global Configuration
+### 9. Global Configuration
 - `~/.claude/CLAUDE.md` with best practices
 - Pre-authorized safe commands
 - Standardized workflows
+
+## 🎨 Optional: Advanced Enhancements
+
+### agency-agents (Specialized Personas)
+- 100+ pre-built AI agent personas for role-specific tasks
+- **GitHub**: https://github.com/msitarzewski/agency-agents
+- **Benefit**: 10-20% additional savings through better-targeted prompts
+- **Use cases**:
+  - Engineering (frontend/backend devs, DevOps, security)
+  - Design (UI/UX, brand strategy)
+  - Marketing (SEO, content, social media)
+  - QA Testing (accessibility, performance)
+- **Setup**: Copy persona files to your project directory
+- **Works with**: Claude Code (native), also Cursor, Aider, Windsurf
 
 ## 🛠️ Manual Setup (Alternative)
 

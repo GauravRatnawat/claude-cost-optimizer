@@ -131,6 +131,31 @@ else
     gitnexus --version 2>&1 | head -1 | sed 's/^/  /' || true
 fi
 
+# 2b. Install code-review-graph (MCP server)
+log_info "Checking for code-review-graph (AI-powered code review)..."
+if command -v python3 &> /dev/null || command -v pip3 &> /dev/null; then
+    log_warning "code-review-graph is an MCP server - manual setup required"
+    echo
+    echo "  code-review-graph provides:"
+    echo "  • Impact radius analysis for blast-radius detection"
+    echo "  • Delta reviews (review only changes since last commit)"
+    echo "  • PR reviews with full structural context"
+    echo "  • Semantic code search with knowledge graphs"
+    echo
+    echo "  📥 To install code-review-graph:"
+    echo "     GitHub: https://github.com/tirth8205/code-review-graph"
+    echo "     Follow the MCP server setup instructions in the repository"
+    echo
+    echo "  Skills available after installation:"
+    echo "     /review-delta  - Review only recent changes"
+    echo "     /review-pr     - Review a PR or branch diff"
+    echo "     /build-graph   - Build/update the knowledge graph"
+    echo
+else
+    log_warning "Python not found. code-review-graph requires Python 3.8+"
+    log_info "Install Python first, then visit: https://github.com/tirth8205/code-review-graph"
+fi
+
 # 3. Configure opusplan model
 log_info "Configuring opusplan model (smart model switching)..."
 if cat > "$CLAUDE_DIR/settings.json" << 'EOF'
@@ -290,6 +315,11 @@ echo "   ${BLUE}/qa${NC}      - Test your application"
 echo "   ${BLUE}/ship${NC}    - Complete ship workflow"
 echo "   ${BLUE}/browse${NC}  - Test with headless browser"
 echo "   ${BLUE}/retro${NC}   - Weekly retrospective"
+echo
+echo "   ${BLUE}code-review-graph${NC} skills (if installed):"
+echo "   ${BLUE}/review-delta${NC} - Review only changes since last commit"
+echo "   ${BLUE}/review-pr${NC}    - Review PR with blast-radius analysis"
+echo "   ${BLUE}/build-graph${NC}  - Build/update code knowledge graph"
 echo
 echo "3. (Optional) Install Handy for voice-to-text (FREE & open source):"
 echo "   ${BLUE}https://github.com/handy-app/handy${NC}"

@@ -34,6 +34,15 @@ Available gstack skills:
 
 GitNexus pre-hooks are configured for intelligent code search. Trust the hook suggestions for efficient navigation.
 
+## Code Review with Knowledge Graphs
+
+If code-review-graph is installed, use these skills for efficient code reviews:
+- /review-delta - Review only changes since last commit (token-efficient)
+- /review-pr - Review PR or branch diff with structural context
+- /build-graph - Build/update the code knowledge graph
+
+These tools provide blast-radius analysis and impact detection for safer code changes.
+
 ## Efficiency Guidelines
 
 1. **Reuse context**: Reference previous conversations when available
