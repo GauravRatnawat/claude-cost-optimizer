@@ -32,6 +32,14 @@ npm install -g gitnexus
 git clone https://github.com/garrytan/gstack ~/.claude/skills/gstack
 ```
 
+**RTK** (Token Killer)
+```bash
+brew install rtk
+rtk init -g    # auto-hooks into Claude Code
+rtk gain       # view accumulated savings
+# GitHub: https://github.com/rtk-ai/rtk
+```
+
 **Handy** (Voice-to-Text)
 - Mac App Store: Search "Handy"
 - GitHub: https://github.com/handy-app/handy
@@ -99,6 +107,7 @@ gitnexus rebuild              # Rebuild code graph
 | Strategy | Impact |
 |---------|--------|
 | Model selection | Opus→Sonnet saves ~70% per query |
+| RTK output compression | 60-90% per command, ~80% overall |
 | Task automation | Reuse instead of re-query |
 | Voice-to-text | Clearer prompts = fewer iterations |
 | Context preservation | Stop re-explaining |
@@ -143,6 +152,7 @@ cat ~/.claude/settings.json
 - **claudetop**: https://github.com/GauravRatnawat/claudetop
 - **GitNexus**: https://github.com/abhigyanpatwari/GitNexus
 - **code-review-graph**: https://github.com/tirth8205/code-review-graph
+- **RTK**: https://github.com/rtk-ai/rtk
 - **agency-agents**: https://github.com/msitarzewski/agency-agents (optional personas)
 - **GitHub Copilot**: https://github.com/features/copilot
 

@@ -28,6 +28,17 @@
 - **Author**: Tirth Patel
 - **Features**: Impact radius analysis, delta reviews, PR reviews, semantic search, structural context
 
+### RTK (Token Killer)
+- **GitHub**: https://github.com/rtk-ai/rtk
+- **Installation**: `brew install rtk` then `rtk init -g`
+- **Purpose**: CLI proxy that intercepts and compresses command output before the LLM reads it
+- **How it works**: Hooks into Claude Code via PreToolUse; transparently rewrites Bash calls
+- **Command coverage**: git, gh, cargo, npm/pnpm, pytest, go test, rspec, docker, kubectl, eslint, tsc, prettier, ruff, rubocop, and more
+- **Features**: Smart filtering, grouping, truncation, deduplication; `rtk gain` analytics; `rtk discover` for missed savings
+- **Savings**: 60-90% per command, ~80% overall session reduction
+- **Overhead**: <10ms, single Rust binary, zero dependencies
+- **Supported AI tools**: Claude Code, GitHub Copilot, Cursor, Gemini CLI, Codex, Windsurf, Cline/Roo Code
+
 ## Skills & Plugins
 
 ### gstack (Automation Skills)

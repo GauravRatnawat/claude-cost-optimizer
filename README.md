@@ -110,10 +110,34 @@ Pre-built workflows that replace hours of manual work:
 - Download from Mac App Store or https://handy.app
 - Free and privacy-focused (local processing)
 
-### 9. Global Configuration
+### 9. RTK (Token Killer)
+- CLI proxy that compresses command output before the LLM sees it
+- Sits transparently between Claude Code and shell commands via PreToolUse hook
+- Supports git, cargo, pytest, npm, docker, kubectl, eslint, and more
+- **GitHub**: https://github.com/rtk-ai/rtk
+- **Install**: `brew install rtk` then `rtk init -g`
+
+### 10. Global Configuration
 - `~/.claude/CLAUDE.md` with best practices
 - Pre-authorized safe commands
 - Standardized workflows
+
+## 🔑 Savings at a Glance: RTK
+
+RTK compresses what Claude Code reads from the terminal. Before the LLM processes `cargo test` output, RTK strips noise, groups errors, deduplicates logs, and truncates boilerplate — returning a fraction of the original tokens.
+
+| Command | Typical savings |
+|---------|----------------|
+| `git status` / `ls` | ~80% |
+| `cargo test` / `pytest` | ~90% |
+| `git add` / `commit` | ~92% |
+| Full session average | ~80% |
+
+```bash
+brew install rtk
+rtk init -g   # auto-hooks into Claude Code
+rtk gain      # view accumulated savings
+```
 
 ## 🎨 Optional: Advanced Enhancements
 
