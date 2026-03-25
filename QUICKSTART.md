@@ -127,7 +127,13 @@ For maximum learning, try this progression:
 - Add them to `~/.claude/settings.local.json`
 - Restart Claude session
 
-### Day 6-7: Workspace Organization
+### Day 5-6: ECC Skills Harness (Optional)
+- Install everything-claude-code: `npm install -g ecc-universal`
+- Apply for your languages: `ecc install --target claude java kotlin`
+- Unlocks: `kotlin-review`, `springboot-tdd`, `gradle-build`, `kotlin-test`, and 100+ more skills
+- Full command reference: [docs/ECC_COMMANDS.md](./docs/ECC_COMMANDS.md)
+
+### Day 7: Workspace Organization
 - Install Conductor (if available)
 - Create separate workspaces for different projects
 - Use conversation-recorder to save context
@@ -140,48 +146,6 @@ claudetop --days 14
 
 # Expected: 50-70% cost reduction
 ```
-
-## Common First-Day Issues
-
-### "claudetop: command not found"
-
-Fix:
-```bash
-# Check npm global bin is in PATH
-npm config get prefix
-
-# Add to PATH (replace /path/to/npm with actual path)
-echo 'export PATH="/path/to/npm/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc
-```
-
-### "Skills not loading"
-
-Fix:
-```bash
-# Check skill directory
-ls -la ~/.claude/skills/gstack/
-
-# If missing, install gstack
-# See docs/GSTACK_INSTALL.md for installation options
-
-# gstack is optional - other optimizations still work!
-```
-
-### "opusplan not working"
-
-Check:
-```bash
-cat ~/.claude/settings.json
-
-# Should show:
-# {
-#   "model": "opusplan",
-#   ...
-# }
-```
-
-If not, rerun setup or manually edit the file.
 
 ## Quick Reference
 
@@ -205,6 +169,9 @@ claude
 /review-delta  # Review only changes since last commit
 /review-pr     # Review PR with blast-radius analysis
 /build-graph   # Build/update code knowledge graph
+
+# journal-recorder-agent (if installed — triggers automatically):
+# "we're done" or "thanks" → records session to ~/claude-journal/
 ```
 
 ### Weekly Commands
@@ -230,9 +197,10 @@ git pull
 
 ## Next Steps
 
-1. **Read the FAQ**: Common questions answered in [FAQ.md](./FAQ.md)
-2. **Customize**: Edit templates in `templates/` to match your workflow
-3. **Contribute**: Share your cost savings in [CONTRIBUTING.md](./CONTRIBUTING.md)
+1. **Full command reference**: [docs/ALL_COMMANDS.md](./docs/ALL_COMMANDS.md) — every command for every tool
+2. **Read the FAQ**: Common questions answered in [FAQ.md](./FAQ.md)
+3. **Customize**: Edit templates in `templates/` to match your workflow
+4. **Contribute**: Share your cost savings in [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 ## Support
 

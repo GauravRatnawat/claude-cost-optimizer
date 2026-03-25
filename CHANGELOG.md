@@ -24,7 +24,7 @@ Complete setup system for optimizing Claude Code costs.
 - FAQ.md - Common questions
 - MANUAL_SETUP.md - Step-by-step guide
 - CONTRIBUTING.md - Contribution guidelines
-- RESOURCES.md - Tool links and references
+- docs/ALL_COMMANDS.md - Complete command reference for all tools
 - docs/VOICE_TO_TEXT.md - Handy voice-to-text guide
 - docs/GSTACK_INSTALL.md - gstack installation options
 - docs/CREATING_SKILLS.md - Custom skill creation guide

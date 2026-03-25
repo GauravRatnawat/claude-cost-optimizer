@@ -117,7 +117,15 @@ Pre-built workflows that replace hours of manual work:
 - **GitHub**: https://github.com/rtk-ai/rtk
 - **Install**: `brew install rtk` then `rtk init -g`
 
-### 10. Global Configuration
+### 10. journal-recorder-agent (Session Logger)
+- Auto-records coding sessions as rich, searchable journal entries
+- Triggers proactively at end of conversations or after major milestones
+- Captures: summary, commands run, key decisions, problems solved, next steps
+- Entries written for "new engineer with zero context" — pick up exactly where you left off
+- **GitHub**: https://github.com/GauravRatnawat/journal-recorder-agent
+- **Install**: `curl -o ~/.claude/agents/journal-recorder.md https://raw.githubusercontent.com/GauravRatnawat/journal-recorder-agent/main/journal-recorder.md`
+
+### 11. Global Configuration
 - `~/.claude/CLAUDE.md` with best practices
 - Pre-authorized safe commands
 - Standardized workflows
@@ -140,6 +148,14 @@ rtk gain      # view accumulated savings
 ```
 
 ## 🎨 Optional: Advanced Enhancements
+
+### everything-claude-code (ECC) - Community Harness
+- 100+ skills, rules, agents, hooks, TDD workflows, and instinct learning — all in one install
+- Covers Java, Kotlin, Python, Go, Rust, JS/TS, C++, and more
+- **GitHub**: https://github.com/affaan-m/everything-claude-code (107k+ stars)
+- **Install**: `npm install -g ecc-universal && ecc install --target claude java kotlin`
+- **Commands**: `ecc doctor`, `ecc list-installed`, `ecc repair`
+- **Full reference**: [docs/ECC_COMMANDS.md](./docs/ECC_COMMANDS.md)
 
 ### agency-agents (Specialized Personas)
 - 100+ pre-built AI agent personas for role-specific tasks
@@ -259,7 +275,8 @@ Setup based on real-world optimization of heavy Claude Code usage. Your results 
 **Questions?** Check out:
 - [QUICKSTART.md](./QUICKSTART.md) - Get started in 5 minutes
 - [FAQ.md](./FAQ.md) - Common questions answered
-- [RESOURCES.md](./RESOURCES.md) - Links to tools and documentation
+- [docs/ALL_COMMANDS.md](./docs/ALL_COMMANDS.md) - Complete command reference for all tools
+- [docs/ECC_COMMANDS.md](./docs/ECC_COMMANDS.md) - Everything Claude Code full reference
 - [docs/VOICE_TO_TEXT.md](./docs/VOICE_TO_TEXT.md) - Voice input for faster prompts
 - [docs/GSTACK_INSTALL.md](./docs/GSTACK_INSTALL.md) - Installing automation skills
 - [docs/CREATING_SKILLS.md](./docs/CREATING_SKILLS.md) - Create your own skills

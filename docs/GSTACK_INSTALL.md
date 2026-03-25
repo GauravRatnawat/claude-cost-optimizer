@@ -50,24 +50,9 @@ ls -la ~/.claude/skills/gstack/
 # Should see: review/, qa/, ship/, browse/, retro/, etc.
 ```
 
-#### Option B: Install from GitHub
-```bash
-# Clone gstack from official repository
-git clone https://github.com/garrytan/gstack ~/.claude/skills/gstack
-
-# Navigate to gstack directory
-cd ~/.claude/skills/gstack
-
-# Install dependencies (if needed)
-npm install 2>/dev/null || bun install 2>/dev/null || true
-
-# Verify installation
-ls -la ~/.claude/skills/gstack/
-```
-
 **Source**: https://github.com/garrytan/gstack
 
-#### Option B: Alternative Installation Locations
+#### Alternative Installation Locations
 
 If you prefer a different location:
 ```bash
