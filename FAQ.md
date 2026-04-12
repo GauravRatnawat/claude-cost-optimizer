@@ -4,13 +4,17 @@
 
 ### Q: Will this really cut costs by 70%?
 
-**A:** Results vary based on usage patterns, but the 70% figure comes from real-world usage. The key factors:
-- opusplan mode saves ~60% by using cheaper models for execution
-- Automated skills reduce repetitive queries by 50-80%
-- Conversation persistence eliminates context re-explanation
-- Pre-authorized commands reduce approval overhead
+**A:** Results vary. Here's what's actually measured vs. estimated:
 
-Your results will depend on your baseline usage patterns.
+**Measured (real data):**
+- RTK token compression: **51% savings** on terminal output (514K tokens saved across 1,458 commands). Individual commands range from 59% (`git diff`) to 98% (`ps aux`).
+- Caveman output compression: **~75% fewer output tokens** (documented in plugin benchmarks)
+
+**Estimated (depends on usage):**
+- opusplan model routing: saves on execution-phase API costs by routing to cheaper models
+- Workflow automation via gstack skills: fewer repetitive queries
+
+Total will vary by usage pattern. Run `rtk gain` to see your own RTK numbers.
 
 ### Q: Do I lose quality with cheaper models?
 

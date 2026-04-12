@@ -125,7 +125,15 @@ Pre-built workflows that replace hours of manual work:
 - **GitHub**: https://github.com/GauravRatnawat/journal-recorder-agent
 - **Install**: `curl -o ~/.claude/agents/journal-recorder.md https://raw.githubusercontent.com/GauravRatnawat/journal-recorder-agent/main/journal-recorder.md`
 
-### 11. Global Configuration
+### 11. Caveman (Token Compression via Communication Style)
+- Cuts ~75% of Claude's output tokens by responding in compressed "caveman" prose
+- Full technical accuracy preserved — drops filler words, articles, hedging, pleasantries
+- Intensity levels: `lite` (professional terse), `full` (classic caveman), `ultra` (abbreviations + arrows)
+- Specialized modes: `/caveman-commit` (compressed commit messages), `/caveman-review` (one-line code review)
+- **Plugin**: Install via `claude plugins install caveman@caveman` or vendor via `.claude/hooks/` (included in this repo)
+- **Activate**: `/caveman` — deactivate: "stop caveman" or "normal mode"
+
+### 12. Global Configuration
 - `~/.claude/CLAUDE.md` with best practices
 - Pre-authorized safe commands
 - Standardized workflows
@@ -134,12 +142,16 @@ Pre-built workflows that replace hours of manual work:
 
 RTK compresses what Claude Code reads from the terminal. Before the LLM processes `cargo test` output, RTK strips noise, groups errors, deduplicates logs, and truncates boilerplate — returning a fraction of the original tokens.
 
-| Command | Typical savings |
+Real-world data from 1,458 commands (run `rtk gain` to see your own):
+
+| Command | Measured savings |
 |---------|----------------|
-| `git status` / `ls` | ~80% |
-| `cargo test` / `pytest` | ~90% |
-| `git add` / `commit` | ~92% |
-| Full session average | ~80% |
+| `ls` | 71.7% |
+| `git diff` | 59–90% |
+| `docker logs` | 73.2% |
+| `make dev` | 92.2% |
+| `ps aux` | 98.3% |
+| Full session average | **51.0%** (514K tokens saved on 1.0M) |
 
 ```bash
 brew install rtk
