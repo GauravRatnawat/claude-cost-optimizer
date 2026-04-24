@@ -236,3 +236,6 @@ ls -la ~/.claude/skills/gstack/
 4. Fine-tune permissions and settings based on your workflow
 
 Expected result: ~70% cost reduction with improved productivity!
+
+---
+← [QUICKSTART](QUICKSTART.md) | [Home](README.md) | [FAQ →](FAQ.md)

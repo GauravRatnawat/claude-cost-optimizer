@@ -293,3 +293,6 @@ This is an **optional enhancement** - your core cost optimizer works great witho
 ---
 
 **More questions?** Open an issue on GitHub or check the discussions.
+
+---
+← [Home](README.md) | [All Commands →](docs/ALL_COMMANDS.md)
