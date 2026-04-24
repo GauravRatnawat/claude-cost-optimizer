@@ -6,3 +6,4 @@ skills/*/node_modules/
 backups/
 .gitnexus
 .claude/settings.local.json
+.worktrees/
