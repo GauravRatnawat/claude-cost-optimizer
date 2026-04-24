@@ -248,4 +248,4 @@ Deep dive: [docs/ECC_COMMANDS.md](ECC_COMMANDS.md)
 GitHub: https://github.com/msitarzewski/agency-agents
 
 ---
-← [How It Works](01-how-it-works.md) | [Configuration →](03-configuration.md)
+← [How It Works](01-how-it-works.md) | [Skills Guide →](04-skills-guide.md)
