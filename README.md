@@ -138,6 +138,41 @@ Pre-built workflows that replace hours of manual work:
 - Pre-authorized safe commands
 - Standardized workflows
 
+## Getting Started
+
+Work through these stages in order. Each builds on the previous.
+
+### Stage 1 — Core Setup (15 min) → ~20-30% cost reduction
+
+- [ ] Run `./setup.sh` (or follow [Manual Setup](MANUAL_SETUP.md))
+- [ ] Verify claudetop: `claudetop` shows a dashboard
+- [ ] Verify model switching: `claude --model opusplan --print "hello"` responds
+- [ ] Check your baseline: `claudetop --days 7 --summary`
+
+**Expected result:** Model automatically switches to Sonnet/Haiku for non-planning tasks.
+
+### Stage 2 — Token Compression (30 min) → additional ~40-50% reduction
+
+- [ ] Install RTK: `brew install rtk && rtk init -g`
+- [ ] Verify RTK: `rtk --version` and `rtk gain` both work
+- [ ] Enable Caveman mode: type `/caveman` in Claude Code chat
+- [ ] Check compression: `rtk gain` shows token savings accumulating
+
+> ⚠️ RTK name collision risk: `brew install rtk` may install "Rust Type Kit" instead. If `rtk gain` fails, see the [RTK install notes](docs/02-tools-reference.md#rtk--token-killer).
+
+**Expected result:** Terminal output compressed ~51% (RTK) + Claude responses compressed ~75% (Caveman).
+
+### Stage 3 — Workflow Automation (1-2 hrs) → additional ~10-20% reduction
+
+- [ ] Install gstack skills: see [GSTACK_INSTALL.md](docs/GSTACK_INSTALL.md)
+- [ ] Try `/review` on a real project
+- [ ] Try `/qa` before a commit
+- [ ] Set up workspace isolation with [Conductor](docs/02-tools-reference.md#conductor) (optional but recommended)
+
+**Expected result:** Multi-step workflows (review → test → commit) collapse into single commands.
+
+---
+
 ## 🔑 Savings at a Glance: RTK
 
 RTK compresses what Claude Code reads from the terminal. Before the LLM processes `cargo test` output, RTK strips noise, groups errors, deduplicates logs, and truncates boilerplate — returning a fraction of the original tokens.
