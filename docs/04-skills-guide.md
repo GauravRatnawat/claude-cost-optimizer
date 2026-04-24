@@ -93,4 +93,4 @@ Skills are just directories with a `SKILL.md` file. A minimal skill has:
 See [docs/CREATING_SKILLS.md](CREATING_SKILLS.md) for a complete walkthrough with examples.
 
 ---
-← [Tools Reference](02-tools-reference.md) | [Advanced →](VOICE_TO_TEXT.md)
+← [Configuration](03-configuration.md) | [Advanced →](VOICE_TO_TEXT.md)
