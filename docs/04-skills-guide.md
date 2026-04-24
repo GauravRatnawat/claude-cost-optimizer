@@ -12,7 +12,7 @@ Caveman skills compress Claude's output style. They do not change what Claude kn
 
 | Skill | Command | Purpose | When to Use |
 |-------|---------|---------|-------------|
-| caveman | `/caveman [lite\|full\|ultra]` | Switch response compression intensity | Anytime you want fewer output tokens. Default: `full` |
+| caveman | `/caveman [lite\|full\|ultra\|wenyan]` | Switch response compression intensity | Anytime you want fewer output tokens. Default: `full` |
 | caveman-commit | `/caveman-commit` | Generate compressed, precise commit messages | Before every commit — removes verbose commit ceremony |
 | caveman-review | `/caveman-review` | One-line code review comments | During PR review — one finding per line, no padding |
 
@@ -21,6 +21,7 @@ Caveman skills compress Claude's output style. They do not change what Claude kn
 - `lite` — professional terse; reads like a senior engineer in a hurry
 - `full` — classic caveman; drops articles, hedging, filler completely
 - `ultra` — adds abbreviations and arrow notation; maximum compression
+- `wenyan` — classical Chinese register; `wenyan-lite` / `wenyan-full` / `wenyan-ultra` sub-levels available; 80–90% character reduction at full intensity
 
 **Benchmark:** Caveman mode reduces output tokens by approximately 75% (documented in plugin benchmarks).
 

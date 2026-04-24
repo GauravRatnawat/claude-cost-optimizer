@@ -10,7 +10,7 @@
 | Caveman | Response compression (~75% fewer output tokens) | `claude plugins install caveman@caveman` | `/caveman` | — |
 | Conductor | Isolated workspaces per project | Download from conductor.app | GUI | — |
 | Handy | Voice-to-text prompt input | Download from handy.app | Push-to-talk | [VOICE_TO_TEXT.md](VOICE_TO_TEXT.md) |
-| conversation-recorder | Auto-saves sessions for resume | `curl` install (see below) | Automatic | — |
+| journal-recorder-agent | Auto-saves sessions for resume | `curl` install (see below) | Automatic | — |
 | GitNexus | Graph-powered code intelligence | `npm install -g gitnexus` | `gitnexus rebuild` | — |
 | code-review-graph | AI code review MCP server | See GitHub repo | MCP tools | — |
 | gstack | Automation skill suite (/review /qa /ship etc.) | `git clone ...gstack ~/.claude/skills/gstack` | `/review` `/ship` | [GSTACK_INSTALL.md](GSTACK_INSTALL.md) |
@@ -50,6 +50,7 @@ npm install -g claudetop
 - `claudetop` — interactive dashboard
 - `claudetop --today` — today's spending
 - `claudetop --days 7` — weekly trend
+- `claudetop --days 7 --summary` — weekly summary report
 - `claudetop --json` — machine-readable output for scripting
 
 GitHub: https://github.com/GauravRatnawat/claudetop
@@ -64,6 +65,8 @@ GitHub: https://github.com/GauravRatnawat/claudetop
 brew install rtk
 rtk init -g   # installs global PreToolUse hook into Claude Code
 ```
+
+> ⚠️ **Name collision:** `brew install rtk` may install "Rust Type Kit" instead. Verify with `rtk --version` and `rtk gain` after install. If `rtk gain` fails, see [RTK troubleshooting](https://github.com/rtk-ai/rtk).
 
 **Key commands:**
 - `rtk gain` — view accumulated token savings
@@ -83,7 +86,7 @@ GitHub: https://github.com/rtk-ai/rtk
 
 ```bash
 claude plugins install caveman@caveman
-# OR: vendored in this repo via .claude/hooks/
+# OR: vendored in this repo via .claude/skills/
 ```
 
 **Key commands:**
@@ -131,7 +134,7 @@ Deep dive: [docs/VOICE_TO_TEXT.md](VOICE_TO_TEXT.md)
 
 ---
 
-### conversation-recorder
+### journal-recorder-agent
 
 **Purpose:** Auto-saves every conversation with summary, commands run, key decisions, problems solved, and next steps. Triggers proactively at end of sessions or after major milestones. Eliminates context re-explanation when resuming work.
 
