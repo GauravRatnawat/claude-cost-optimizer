@@ -8,27 +8,27 @@
   <meta property="og:title" content="Claude Cost Optimizer · 40–75% less spend">
   <meta property="og:url" content="https://gauravratnawat.github.io/claude-cost-optimizer/">
   <link rel="canonical" href="https://gauravratnawat.github.io/claude-cost-optimizer/">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230f172a'/><text x='4' y='22' font-family='monospace' font-size='15' font-weight='700' fill='%2322c55e'>$↓</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23f2ede4'/><text x='4' y='22' font-family='monospace' font-size='15' font-weight='700' fill='%23c2410c'>$↓</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:        #0f172a;
-      --bg-1:      #1e293b;
-      --bg-2:      #253347;
-      --ink:       #f1f5f9;
-      --ink-dim:   #94a3b8;
-      --ink-mute:  #475569;
-      --rule:      #1e293b;
-      --rule-soft: #253347;
-      --green:     #22c55e;
-      --green-dim: #16a34a;
-      --amber:     #f59e0b;
-      --red:       #ef4444;
+      --bg:        #f2ede4;
+      --bg-1:      #ebe4d6;
+      --bg-2:      #e2d9c8;
+      --ink:       #17140f;
+      --ink-dim:   #4b463d;
+      --ink-mute:  #857e71;
+      --rule:      #d6cdb9;
+      --rule-soft: #e2dbc9;
+      --green:     #4a7c59;
+      --green-dim: #3a6347;
+      --amber:     #c2410c;
+      --red:       #b91c1c;
 
       --serif: "Fraunces", ui-serif, Georgia, serif;
-      --sans:  "Inter", ui-sans-serif, system-ui, sans-serif;
+      --sans:  "Inter Tight", ui-sans-serif, system-ui, sans-serif;
       --mono:  "JetBrains Mono", ui-monospace, monospace;
     }
 
@@ -44,7 +44,7 @@
       overflow-x: hidden;
     }
     a { color: inherit; text-decoration: none; }
-    ::selection { background: var(--green); color: #0f172a; }
+    ::selection { background: var(--amber); color: #fff; }
 
     /* ── Topbar ── */
     .topbar {
@@ -52,7 +52,7 @@
       height: 56px;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 clamp(20px, 5vw, 64px);
-      background: rgba(15,23,42,.88);
+      background: color-mix(in oklab, var(--bg) 85%, transparent);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--rule);
     }
@@ -61,8 +61,8 @@
     }
     .topbar-icon {
       width: 28px; height: 28px; border-radius: 6px;
-      background: var(--green); display: flex; align-items: center; justify-content: center;
-      font-family: var(--mono); font-size: 11px; font-weight: 700; color: #0f172a;
+      background: var(--amber); display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 11px; font-weight: 700; color: #fff;
     }
     .topbar-name {
       font-size: 13px; font-weight: 500; color: var(--ink);
@@ -73,7 +73,7 @@
       padding: 6px 14px; border: 1px solid var(--rule-soft); border-radius: 6px;
       transition: border-color .15s, color .15s;
     }
-    .topbar-right a:hover { border-color: var(--green); color: var(--green); }
+    .topbar-right a:hover { border-color: var(--amber); color: var(--amber); }
 
     /* ── Layout ── */
     .wrap { max-width: 1100px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); }
@@ -89,7 +89,7 @@
       display: inline-flex; align-items: center; gap: 8px;
       font-family: var(--mono); font-size: 11px; letter-spacing: .1em;
       text-transform: uppercase; color: var(--green);
-      background: rgba(34,197,94,.08); border: 1px solid rgba(34,197,94,.2);
+      background: rgba(74,124,89,.1); border: 1px solid rgba(74,124,89,.25);
       border-radius: 99px; padding: 4px 12px; margin-bottom: 28px;
     }
     .hero-badge::before { content: "●"; font-size: 8px; }
@@ -110,11 +110,11 @@
     .btn-primary {
       font-family: var(--mono); font-size: 12px; font-weight: 500;
       letter-spacing: .06em; text-transform: uppercase;
-      background: var(--green); color: #0f172a;
+      background: var(--amber); color: #fff;
       padding: 10px 20px; border-radius: 6px;
       transition: background .15s, transform .1s;
     }
-    .btn-primary:hover { background: #16a34a; transform: translateY(-1px); }
+    .btn-primary:hover { background: var(--red); transform: translateY(-1px); }
     .btn-secondary {
       font-family: var(--mono); font-size: 12px; letter-spacing: .06em;
       text-transform: uppercase; color: var(--ink-dim);
@@ -143,7 +143,7 @@
       background: #090e1a; border: 1px solid var(--rule-soft);
       border-radius: 12px; overflow: hidden;
       font-family: var(--mono); font-size: 12px; line-height: 1.75;
-      box-shadow: 0 0 0 1px rgba(34,197,94,.08), 0 32px 64px rgba(0,0,0,.5);
+      box-shadow: 0 24px 64px rgba(23,20,15,.18);
     }
     .t-bar {
       height: 40px; padding: 0 16px;
@@ -203,7 +203,7 @@
     .s-card-body { font-size: 13px; color: var(--ink-dim); line-height: 1.6; margin-bottom: 16px; }
     .s-card-savings {
       font-family: var(--mono); font-size: 11px; color: var(--green);
-      background: rgba(34,197,94,.08); border: 1px solid rgba(34,197,94,.15);
+      background: rgba(74,124,89,.1); border: 1px solid rgba(74,124,89,.2);
       border-radius: 4px; padding: 3px 8px; display: inline-block;
     }
 
@@ -283,7 +283,7 @@
       text-transform: uppercase; color: var(--ink-mute);
       transition: color .15s;
     }
-    .footer-right a:hover { color: var(--green); }
+    .footer-right a:hover { color: var(--ink); }
   </style>
 </head>
 <body>
