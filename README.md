@@ -1,5 +1,7 @@
 # Claude Code Cost Optimizer
 
+**[gauravratnawat.com/claude-cost-optimizer](https://gauravratnawat.com/claude-cost-optimizer/)** · [GitHub](https://github.com/GauravRatnawat/claude-cost-optimizer)
+
 Reduce Claude Code API costs by **40–75%** through model switching, token compression, and workflow automation.
 
 > Measured results: $10K/month → $2.5K/month (author). RTK: 51% token reduction on terminal output. Caveman: ~75% fewer output tokens.
@@ -99,6 +101,10 @@ claudetop --days 7 --summary   # Weekly cost summary
 rtk gain                        # RTK token compression stats
 rtk gain --history              # Full command history with savings
 ```
+
+## About
+
+Built by [Gaurav Ratnawat](https://gauravratnawat.com). Landing page at [gauravratnawat.com/claude-cost-optimizer](https://gauravratnawat.com/claude-cost-optimizer/).
 
 ## Contributing
 
