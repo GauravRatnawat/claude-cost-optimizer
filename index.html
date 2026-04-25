@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Cost Optimizer · 40–75% less spend</title>
+  <meta name="description" content="Reduce Claude Code API costs by 40–75% through smart model switching, token compression, and workflow automation. Measured results. 15-minute setup.">
+  <meta property="og:title" content="Claude Cost Optimizer · 40–75% less spend">
+  <meta property="og:url" content="https://gauravratnawat.github.io/claude-cost-optimizer/">
+  <link rel="canonical" href="https://gauravratnawat.github.io/claude-cost-optimizer/">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230f172a'/><text x='4' y='22' font-family='monospace' font-size='15' font-weight='700' fill='%2322c55e'>$↓</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #0f172a;
+      --bg-1:      #1e293b;
+      --bg-2:      #253347;
+      --ink:       #f1f5f9;
+      --ink-dim:   #94a3b8;
+      --ink-mute:  #475569;
+      --rule:      #1e293b;
+      --rule-soft: #253347;
+      --green:     #22c55e;
+      --green-dim: #16a34a;
+      --amber:     #f59e0b;
+      --red:       #ef4444;
+
+      --serif: "Fraunces", ui-serif, Georgia, serif;
+      --sans:  "Inter", ui-sans-serif, system-ui, sans-serif;
+      --mono:  "JetBrains Mono", ui-monospace, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: var(--green); color: #0f172a; }
+
+    /* ── Topbar ── */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(20px, 5vw, 64px);
+      background: rgba(15,23,42,.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .topbar-brand {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .topbar-icon {
+      width: 28px; height: 28px; border-radius: 6px;
+      background: var(--green); display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 11px; font-weight: 700; color: #0f172a;
+    }
+    .topbar-name {
+      font-size: 13px; font-weight: 500; color: var(--ink);
+    }
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
+    .topbar-right a {
+      font-size: 13px; color: var(--ink-dim);
+      padding: 6px 14px; border: 1px solid var(--rule-soft); border-radius: 6px;
+      transition: border-color .15s, color .15s;
+    }
+    .topbar-right a:hover { border-color: var(--green); color: var(--green); }
+
+    /* ── Layout ── */
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 140px 0 80px;
+      display: grid; grid-template-columns: 5fr 4fr; gap: 56px; align-items: start;
+    }
+    @media (max-width: 800px) { .hero { grid-template-columns: 1fr; padding: 100px 0 60px; } }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 11px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--green);
+      background: rgba(34,197,94,.08); border: 1px solid rgba(34,197,94,.2);
+      border-radius: 99px; padding: 4px 12px; margin-bottom: 28px;
+    }
+    .hero-badge::before { content: "●"; font-size: 8px; }
+
+    .hero-h1 {
+      font-family: var(--serif); font-size: clamp(48px, 6vw, 80px);
+      font-weight: 300; line-height: .96; margin-bottom: 24px;
+    }
+    .hero-h1 em { font-style: italic; color: var(--green); }
+    .hero-h1 strong { font-weight: 300; color: var(--amber); }
+
+    .hero-p {
+      font-size: 15px; color: var(--ink-dim); line-height: 1.7;
+      max-width: 440px; margin-bottom: 36px;
+    }
+
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      font-family: var(--mono); font-size: 12px; font-weight: 500;
+      letter-spacing: .06em; text-transform: uppercase;
+      background: var(--green); color: #0f172a;
+      padding: 10px 20px; border-radius: 6px;
+      transition: background .15s, transform .1s;
+    }
+    .btn-primary:hover { background: #16a34a; transform: translateY(-1px); }
+    .btn-secondary {
+      font-family: var(--mono); font-size: 12px; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink-dim);
+      padding: 10px 20px; border: 1px solid var(--rule-soft); border-radius: 6px;
+      transition: border-color .15s, color .15s;
+    }
+    .btn-secondary:hover { border-color: var(--ink-dim); color: var(--ink); }
+
+    .hero-metrics {
+      display: flex; gap: 32px; margin-top: 48px;
+      padding-top: 32px; border-top: 1px solid var(--rule);
+    }
+    .metric { display: flex; flex-direction: column; gap: 3px; }
+    .metric-num {
+      font-family: var(--serif); font-size: 40px; font-weight: 300;
+      line-height: 1; color: var(--ink);
+    }
+    .metric-num span { color: var(--green); }
+    .metric-label {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--ink-mute);
+    }
+
+    /* ── Terminal ── */
+    .terminal {
+      background: #090e1a; border: 1px solid var(--rule-soft);
+      border-radius: 12px; overflow: hidden;
+      font-family: var(--mono); font-size: 12px; line-height: 1.75;
+      box-shadow: 0 0 0 1px rgba(34,197,94,.08), 0 32px 64px rgba(0,0,0,.5);
+    }
+    .t-bar {
+      height: 40px; padding: 0 16px;
+      display: flex; align-items: center; gap: 7px;
+      background: #111827; border-bottom: 1px solid var(--rule);
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; } .dot-y { background: #febc2e; } .dot-g { background: #28c840; }
+    .t-title { margin-left: auto; font-size: 10px; color: var(--ink-mute); letter-spacing: .06em; }
+    .t-body { padding: 16px 18px; }
+    .t-prompt { color: var(--green); }
+    .t-cmd { color: var(--ink); }
+    .t-comment { color: var(--ink-mute); }
+    .t-ok { color: var(--green); font-weight: 500; }
+    .t-num { color: var(--amber); font-weight: 500; }
+    .t-down { color: #38bdf8; }
+    .t-line { display: block; }
+    .t-gap { display: block; height: 6px; }
+
+    /* ── Section ── */
+    hr.rule { border: none; border-top: 1px solid var(--rule); }
+    .section { padding: 80px 0; }
+    .section-eyebrow {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--green); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-eyebrow::after { content: ""; flex: 0 0 32px; height: 1px; background: var(--green); opacity: .4; }
+    .section-h2 {
+      font-family: var(--serif); font-size: clamp(32px, 4vw, 52px);
+      font-weight: 300; line-height: 1.05; margin-bottom: 12px;
+    }
+    .section-h2 em { font-style: italic; color: var(--ink-dim); }
+    .section-sub {
+      font-size: 15px; color: var(--ink-dim); max-width: 520px;
+      line-height: 1.65; margin-bottom: 48px;
+    }
+
+    /* ── Strategy grid ── */
+    .strategy-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 16px;
+    }
+    @media (max-width: 640px) { .strategy-grid { grid-template-columns: 1fr; } }
+
+    .s-card {
+      background: var(--bg-1); border: 1px solid var(--rule-soft);
+      border-radius: 10px; padding: 28px 24px;
+      transition: border-color .2s;
+    }
+    .s-card:hover { border-color: rgba(34,197,94,.3); }
+    .s-card-num {
+      font-family: var(--mono); font-size: 10px; color: var(--ink-mute);
+      margin-bottom: 14px;
+    }
+    .s-card-icon { font-size: 22px; margin-bottom: 12px; }
+    .s-card-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+    .s-card-body { font-size: 13px; color: var(--ink-dim); line-height: 1.6; margin-bottom: 16px; }
+    .s-card-savings {
+      font-family: var(--mono); font-size: 11px; color: var(--green);
+      background: rgba(34,197,94,.08); border: 1px solid rgba(34,197,94,.15);
+      border-radius: 4px; padding: 3px 8px; display: inline-block;
+    }
+
+    /* ── Pipeline ── */
+    .stages { display: flex; flex-direction: column; gap: 1px; background: var(--rule); border-radius: 10px; overflow: hidden; border: 1px solid var(--rule-soft); }
+    .stage {
+      background: var(--bg-1); padding: 24px 28px;
+      display: grid; grid-template-columns: 80px 1fr auto; gap: 20px; align-items: start;
+    }
+    @media (max-width: 640px) { .stage { grid-template-columns: 1fr; } }
+    .stage-step {
+      font-family: var(--mono); font-size: 11px; color: var(--ink-mute);
+      padding-top: 2px;
+    }
+    .stage-step strong { display: block; font-size: 18px; color: var(--green); font-weight: 400; }
+    .stage-body {}
+    .stage-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .stage-desc { font-size: 13px; color: var(--ink-dim); line-height: 1.5; }
+    .stage-tag {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
+      color: var(--ink-mute); white-space: nowrap; padding-top: 4px;
+    }
+
+    /* ── Numbers ── */
+    .numbers-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 40px; }
+    @media (max-width: 640px) { .numbers-grid { grid-template-columns: 1fr; } }
+    .num-card {
+      background: var(--bg-1); border: 1px solid var(--rule-soft);
+      border-radius: 10px; padding: 28px 24px;
+    }
+    .num-big {
+      font-family: var(--serif); font-size: 64px; font-weight: 300;
+      line-height: 1; color: var(--green); margin-bottom: 10px;
+    }
+    .num-title { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+    .num-sub { font-size: 12px; color: var(--ink-dim); line-height: 1.5; }
+
+    .bars { display: flex; flex-direction: column; gap: 14px; }
+    .bar-row { display: grid; grid-template-columns: 130px 1fr 52px; gap: 12px; align-items: center; }
+    .bar-label { font-family: var(--mono); font-size: 11px; color: var(--ink-dim); }
+    .bar-track { height: 5px; background: var(--bg-2); border-radius: 99px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--green); border-radius: 99px; opacity: .8; }
+    .bar-pct { font-family: var(--mono); font-size: 11px; color: var(--green); text-align: right; }
+
+    /* ── Install ── */
+    .install-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 640px) { .install-grid { grid-template-columns: 1fr; } }
+    .i-card {
+      background: var(--bg-1); border: 1px solid var(--rule-soft);
+      border-radius: 10px; padding: 28px 24px;
+    }
+    .i-card-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .i-card-sub { font-size: 13px; color: var(--ink-dim); margin-bottom: 20px; }
+    .code-block {
+      background: #090e1a; border: 1px solid var(--rule);
+      border-radius: 8px; padding: 16px 18px; overflow-x: auto;
+    }
+    .code-block code {
+      font-family: var(--mono); font-size: 12px; line-height: 1.75;
+      color: #94a3b8; white-space: pre;
+    }
+    .code-block .c-comment { color: #334155; }
+    .code-block .c-cmd { color: #e2e8f0; }
+    .code-block .c-ok { color: #22c55e; }
+    .code-block .c-str { color: var(--amber); }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid var(--rule); padding: 32px 0;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-left { font-size: 12px; color: var(--ink-mute); }
+    .footer-right { display: flex; gap: 20px; }
+    .footer-right a {
+      font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--ink-mute);
+      transition: color .15s;
+    }
+    .footer-right a:hover { color: var(--green); }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-brand">
+      <div class="topbar-icon">$↓</div>
+      <span class="topbar-name">Claude Cost Optimizer</span>
+    </div>
+    <div class="topbar-right">
+      <a href="https://github.com/GauravRatnawat/claude-cost-optimizer" target="_blank" rel="noopener">GitHub →</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="hero">
+        <div>
+          <div class="hero-badge">Measured results · Open source</div>
+          <h1 class="hero-h1">
+            Spend less.<br>
+            <em>Build more.</em><br>
+            <strong>Ship faster.</strong>
+          </h1>
+          <p class="hero-p">
+            A drop-in setup that cuts Claude Code API costs by 40–75% using
+            smart model switching, token compression, and workflow automation.
+            No new APIs. No scripts. 15-minute install.
+          </p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="https://github.com/GauravRatnawat/claude-cost-optimizer" target="_blank" rel="noopener">Get started →</a>
+            <a class="btn-secondary" href="#how-it-works">How it works</a>
+          </div>
+          <div class="hero-metrics">
+            <div class="metric">
+              <span class="metric-num"><span>75</span>%</span>
+              <span class="metric-label">cost reduction</span>
+            </div>
+            <div class="metric">
+              <span class="metric-num"><span>12</span></span>
+              <span class="metric-label">tools curated</span>
+            </div>
+            <div class="metric">
+              <span class="metric-num"><span>0</span></span>
+              <span class="metric-label">new APIs</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="terminal">
+            <div class="t-bar">
+              <span class="dot dot-r"></span>
+              <span class="dot dot-y"></span>
+              <span class="dot dot-g"></span>
+              <span class="t-title">bash</span>
+            </div>
+            <div class="t-body">
+              <span class="t-line"><span class="t-prompt">$</span> <span class="t-cmd">claudetop --days 30</span></span>
+              <span class="t-gap"></span>
+              <span class="t-line">  <span class="t-comment">prev month    </span>  <span class="t-num">$9,840</span></span>
+              <span class="t-line">  <span class="t-comment">this month    </span>  <span class="t-ok">$2,460</span>  <span class="t-down">↓ 75%</span></span>
+              <span class="t-line">  <span class="t-comment">opus usage    </span>  <span class="t-ok">18%</span>  <span class="t-comment">planning only</span></span>
+              <span class="t-gap"></span>
+              <span class="t-line"><span class="t-prompt">$</span> <span class="t-cmd">rtk gain</span></span>
+              <span class="t-gap"></span>
+              <span class="t-line">  <span class="t-comment">git diff      </span>  <span class="t-ok">59–90%</span></span>
+              <span class="t-line">  <span class="t-comment">cargo test    </span>  <span class="t-ok">78%</span></span>
+              <span class="t-line">  <span class="t-comment">docker logs   </span>  <span class="t-ok">73%</span></span>
+              <span class="t-line">  <span class="t-comment">make dev      </span>  <span class="t-ok">92%</span></span>
+              <span class="t-gap"></span>
+              <span class="t-line">  <span class="t-comment">average       </span>  <span class="t-num">51%</span>  <span class="t-comment">514K tokens saved</span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <hr class="rule">
+
+    <!-- Strategy -->
+    <div class="wrap">
+      <section class="section" id="how-it-works">
+        <p class="section-eyebrow">01 — Three strategies</p>
+        <h2 class="section-h2">Target every cost driver.<br><em>Stack the savings.</em></h2>
+        <p class="section-sub">Each strategy is independent. All three together get you to 75%.</p>
+
+        <div class="strategy-grid">
+          <div class="s-card">
+            <p class="s-card-num">01</p>
+            <div class="s-card-icon">⚡</div>
+            <p class="s-card-title">Smart Model Switching</p>
+            <p class="s-card-body">opusplan automatically routes to the right model. Opus only for planning. Sonnet and Haiku handle everything else.</p>
+            <span class="s-card-savings">20–30% savings</span>
+          </div>
+          <div class="s-card">
+            <p class="s-card-num">02</p>
+            <div class="s-card-icon">🗜</div>
+            <p class="s-card-title">Token Compression</p>
+            <p class="s-card-body">RTK strips terminal output before Claude reads it. Caveman mode compresses Claude's replies. Both directions cut.</p>
+            <span class="s-card-savings">40–50% savings</span>
+          </div>
+          <div class="s-card">
+            <p class="s-card-num">03</p>
+            <div class="s-card-icon">🔁</div>
+            <p class="s-card-title">Workflow Automation</p>
+            <p class="s-card-body">gstack skills collapse multi-step workflows. /review, /qa, /ship — 50+ Claude queries become one intent.</p>
+            <span class="s-card-savings">10–20% + productivity</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <hr class="rule">
+
+    <!-- Stages -->
+    <div class="wrap">
+      <section class="section">
+        <p class="section-eyebrow">02 — Setup path</p>
+        <h2 class="section-h2">Three stages.<br><em>Ship when ready.</em></h2>
+        <p class="section-sub">Each stage is self-contained. Stop after Stage 1 if that's enough.</p>
+
+        <div class="stages">
+          <div class="stage">
+            <div class="stage-step"><strong>1</strong>Stage</div>
+            <div class="stage-body">
+              <p class="stage-title">Core setup · 15 min</p>
+              <p class="stage-desc">Run setup.sh. Install claudetop for real-time cost monitoring. Configure opusplan for automatic model switching.</p>
+            </div>
+            <span class="stage-tag">→ 20–30% cheaper</span>
+          </div>
+          <div class="stage">
+            <div class="stage-step"><strong>2</strong>Stage</div>
+            <div class="stage-body">
+              <p class="stage-title">Token compression · 30 min</p>
+              <p class="stage-desc">Install RTK for terminal output compression. Enable Caveman mode to compress Claude's responses. Measured 51% average savings.</p>
+            </div>
+            <span class="stage-tag">→ +40–50% more</span>
+          </div>
+          <div class="stage">
+            <div class="stage-step"><strong>3</strong>Stage</div>
+            <div class="stage-body">
+              <p class="stage-title">Workflow automation · 1–2 hrs</p>
+              <p class="stage-desc">Install gstack skills. Set up workspace isolation. Use /review, /qa, /ship to collapse repetitive query chains.</p>
+            </div>
+            <span class="stage-tag">→ +10–20% + speed</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <hr class="rule">
+
+    <!-- Numbers -->
+    <div class="wrap">
+      <section class="section">
+        <p class="section-eyebrow">03 — Measured results</p>
+        <h2 class="section-h2">Real numbers.<br><em>No benchmarks.</em></h2>
+        <p class="section-sub">All figures measured in production. Run rtk gain in your own project to see your numbers.</p>
+
+        <div class="numbers-grid">
+          <div class="num-card">
+            <div class="num-big">75%</div>
+            <p class="num-title">Cost reduction</p>
+            <p class="num-sub">Author's result: $10K/month → $2.5K/month. Your actual savings depend on usage patterns.</p>
+          </div>
+          <div class="num-card">
+            <div class="num-big">51%</div>
+            <p class="num-title">RTK compression</p>
+            <p class="num-sub">Measured across 1,458 commands. 514K tokens saved on 1M total. Git diffs, build output, logs.</p>
+          </div>
+          <div class="num-card">
+            <div class="num-big">~75%</div>
+            <p class="num-title">Caveman output savings</p>
+            <p class="num-sub">Drops articles, fillers, pleasantries from Claude's responses. Same technical accuracy.</p>
+          </div>
+        </div>
+
+        <div class="bars">
+          <div class="bar-row">
+            <span class="bar-label">git diff</span>
+            <div class="bar-track"><div class="bar-fill" style="width:75%"></div></div>
+            <span class="bar-pct">59–90%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">make dev</span>
+            <div class="bar-track"><div class="bar-fill" style="width:92%"></div></div>
+            <span class="bar-pct">92.2%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">docker logs</span>
+            <div class="bar-track"><div class="bar-fill" style="width:73%"></div></div>
+            <span class="bar-pct">73.2%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">cargo test</span>
+            <div class="bar-track"><div class="bar-fill" style="width:78%"></div></div>
+            <span class="bar-pct">78.1%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">ps aux</span>
+            <div class="bar-track"><div class="bar-fill" style="width:98%"></div></div>
+            <span class="bar-pct">98.3%</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <hr class="rule">
+
+    <!-- Install -->
+    <div class="wrap">
+      <section class="section">
+        <p class="section-eyebrow">04 — Install</p>
+        <h2 class="section-h2">One command.<br><em>Start now.</em></h2>
+        <p class="section-sub">Automated setup handles everything. Manual path available if you prefer.</p>
+
+        <div class="install-grid">
+          <div class="i-card">
+            <p class="i-card-title">Automated</p>
+            <p class="i-card-sub">Installs all tools, copies config, links skills.</p>
+            <div class="code-block"><code><span class="c-comment"># clone</span>
+<span class="c-cmd">git clone https://github.com/GauravRatnawat/</span>
+<span class="c-cmd">  claude-cost-optimizer</span>
+<span class="c-cmd">cd claude-cost-optimizer</span>
+
+<span class="c-comment"># run</span>
+<span class="c-cmd">./setup.sh</span>
+
+<span class="c-comment"># verify</span>
+<span class="c-cmd">claudetop</span>        <span class="c-ok">✓ running</span>
+<span class="c-cmd">rtk --version</span>    <span class="c-ok">✓ installed</span></code></div>
+          </div>
+          <div class="i-card">
+            <p class="i-card-title">Manual</p>
+            <p class="i-card-sub">Step-by-step if you want control over each piece.</p>
+            <div class="code-block"><code><span class="c-comment"># cost monitoring</span>
+<span class="c-cmd">npm install -g claudetop</span>
+
+<span class="c-comment"># model switching</span>
+<span class="c-comment"># copy templates/settings.json</span>
+<span class="c-comment"># → ~/.claude/settings.json</span>
+
+<span class="c-comment"># token compression</span>
+<span class="c-cmd">brew install rtk && rtk init -g</span>
+
+<span class="c-comment"># code intelligence</span>
+<span class="c-cmd">npm install -g gitnexus</span>
+<span class="c-cmd">npx gitnexus analyze</span></code></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <hr class="rule">
+
+    <div class="wrap">
+      <footer class="footer">
+        <span class="footer-left">Claude Cost Optimizer · MIT · <a href="https://gauravratnawat.com" style="color:inherit" target="_blank" rel="noopener">gauravratnawat.com</a></span>
+        <nav class="footer-right">
+          <a href="https://github.com/GauravRatnawat/claude-cost-optimizer" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://github.com/GauravRatnawat/claude-cost-optimizer/blob/main/README.md" target="_blank" rel="noopener">Docs</a>
+          <a href="https://github.com/GauravRatnawat/claude-cost-optimizer/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contribute</a>
+          <a href="https://gauravratnawat.com" target="_blank" rel="noopener">← back</a>
+        </nav>
+      </footer>
+    </div>
+  </main>
+
+</body>
+</html>
