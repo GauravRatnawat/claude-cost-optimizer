@@ -19,19 +19,23 @@ Three things drive most of the cost:
 Not every task needs the most powerful model. opusplan mode automatically routes:
 
 - **Opus** — complex planning, architecture decisions, ambiguous requirements
-- **Sonnet / Haiku** — execution, formatting, simple edits, boilerplate
+- **Sonnet** — execution, formatting, simple edits, boilerplate
 
-You set `"model": "opusplan"` once in `~/.claude/settings.json`. From then on, the right model is chosen per task without any manual intervention. You get Opus quality where it matters, and pay Haiku rates for everything else.
+You set `"model": "opusplan"` once in `~/.claude/settings.json`. From then on, the right model is chosen per task without any manual intervention. You get Opus quality where it matters, and pay Sonnet rates for everything else.
 
-### Strategy 2: Token Compression (RTK + Caveman)
+### Strategy 2: Token Compression (RTK + Caveman + Ponytail + Context-mode)
 
-Two complementary compression tools attack the token problem from different angles:
+Four complementary tools attack the token problem from every angle:
 
 **RTK (Token Killer)** — sits transparently between Claude Code and your shell via a `PreToolUse` hook. Before the LLM sees `git diff`, `docker logs`, or `pytest` output, RTK strips noise, groups errors, deduplicates logs, and truncates boilerplate. Real-world average: **51% savings** across terminal output (514K tokens saved across 1,458 commands).
 
+**Context-mode** — keeps tool output entirely out of your conversation context. Raw bytes from `ctx_batch_execute` and `ctx_execute` stay in a sandbox; only what your code explicitly prints enters the conversation. Saves ~40% context per session on tool-heavy workflows.
+
 **Caveman mode** — changes how Claude responds, not what it reads. Activating `/caveman` switches Claude to terse, compressed prose: full technical accuracy, no filler words, no hedging, no pleasantries. Benchmark: **~75% fewer output tokens**. Three intensity levels: `lite` (professional terse), `full` (classic caveman), `ultra` (abbreviations + arrows).
 
-Together these two cover both sides of the conversation: input compression (RTK) and output compression (Caveman).
+**Ponytail mode** — enforces lazy-efficient responses: no speculative abstractions, no boilerplate, no over-engineering. Stops Claude from generating code and explanations you didn't ask for. Compounds with Caveman for maximum output compression.
+
+Together these four cover every angle: CLI input (RTK), context management (Context-mode), and output style (Caveman + Ponytail).
 
 ### Strategy 3: Workflow Automation (gstack skills)
 
@@ -68,8 +72,10 @@ Without gstack: baseline savings from model switching and token compression (~40
           │       COMPRESSION LAYER          │
           │  RTK — compresses terminal       │
           │  output (PreToolUse hook, 51%)   │
-          │  Caveman — compresses responses  │
-          │  (output style, ~75%)            │
+          │  Context-mode — sandboxes tool   │
+          │  outputs (~40% ctx reduction)    │
+          │  Caveman + Ponytail — compress   │
+          │  responses (output style, ~75%)  │
           └────────────────┬────────────────┘
                            │
           ┌────────────────▼────────────────┐

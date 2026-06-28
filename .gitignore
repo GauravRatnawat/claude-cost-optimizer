@@ -7,3 +7,8 @@ backups/
 .gitnexus
 .claude/settings.local.json
 .worktrees/
+.gstack/
+_bmad-output/
+_bmad/config.user.toml
+.idea/
+.serena/

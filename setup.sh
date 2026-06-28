@@ -2,7 +2,7 @@
 set -e
 
 # Claude Code Cost Optimizer Setup Script
-# Automates installation of cost-saving tools and configurations
+# One-click install for all cost-saving tools and configurations
 
 # Check bash version (requires 4+)
 if ((BASH_VERSINFO[0] < 4)); then
@@ -22,15 +22,13 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-# Logging functions
-log_info() { echo -e "${BLUE}ℹ${NC} $1"; }
+log_info()    { echo -e "${BLUE}ℹ${NC} $1"; }
 log_success() { echo -e "${GREEN}✓${NC} $1"; }
 log_warning() { echo -e "${YELLOW}⚠${NC} $1"; }
-log_error() { echo -e "${RED}✗${NC} $1"; }
+log_error()   { echo -e "${RED}✗${NC} $1"; }
 
-# Interactive mode flag
 INTERACTIVE=false
 if [[ "$1" == "--interactive" ]]; then
     INTERACTIVE=true
@@ -47,256 +45,226 @@ confirm() {
 }
 
 echo "╔════════════════════════════════════════════════════════════╗"
-echo "║   Claude Code Cost Optimizer Setup                        ║"
-echo "║   Target: 70% cost reduction with enhanced productivity   ║"
+echo "║   Claude Code Cost Optimizer — One-Click Setup            ║"
+echo "║   Target: 70–75% cost reduction                           ║"
 echo "╚════════════════════════════════════════════════════════════╝"
 echo
 
-# Check if Claude Code is installed
+# ── Prerequisites ──────────────────────────────────────────────
 if ! command -v claude &> /dev/null; then
-    log_error "Claude Code CLI not found. Please install it first:"
+    log_error "Claude Code CLI not found. Install first:"
     echo "  npm install -g @anthropic-ai/claude-code"
-    echo
-    echo "After installation, run this setup script again."
     exit 1
 fi
 
 CLAUDE_VERSION=$(claude --version 2>&1 | head -1 || echo "unknown")
-log_success "Claude Code CLI detected: $CLAUDE_VERSION"
+log_success "Claude Code CLI: $CLAUDE_VERSION"
 
-# Create necessary directories
-log_info "Creating configuration directories..."
-mkdir -p "$CLAUDE_DIR/skills"
-mkdir -p "$CLAUDE_DIR/projects"
-mkdir -p "$CLAUDE_DIR/backups"
+mkdir -p "$CLAUDE_DIR/skills" "$CLAUDE_DIR/agents" "$CLAUDE_DIR/backups"
 
-# Backup existing configuration
+# Backup existing config
 if [[ -f "$CLAUDE_DIR/settings.json" ]]; then
-    if confirm "Backup existing configuration?"; then
+    if confirm "Backup existing settings.json?"; then
         BACKUP_DIR="$CLAUDE_DIR/backups/$(date +%Y%m%d_%H%M%S)"
         mkdir -p "$BACKUP_DIR"
-        cp -r "$CLAUDE_DIR"/*.json "$BACKUP_DIR/" 2>/dev/null || true
+        cp "$CLAUDE_DIR/settings.json" "$BACKUP_DIR/" 2>/dev/null || true
         cp "$CLAUDE_DIR/CLAUDE.md" "$BACKUP_DIR/" 2>/dev/null || true
         log_success "Backed up to $BACKUP_DIR"
     fi
 fi
 
-# 1. Install claudetop
+# ── Stage 1: Core tools ────────────────────────────────────────
+echo
+echo "── Stage 1: Core tools ─────────────────────────────────────"
+
+# claudetop
 log_info "Installing claudetop (cost monitoring)..."
 if ! command -v claudetop &> /dev/null; then
     if command -v npm &> /dev/null; then
-        if npm install -g claudetop; then
-            log_success "claudetop installed successfully"
-            # Verify installation
-            if command -v claudetop &> /dev/null; then
-                log_info "Verified: $(claudetop --version 2>&1 | head -1 || echo 'claudetop ready')"
-            else
-                log_warning "claudetop installed but not in PATH. You may need to restart your shell."
-            fi
-        else
-            log_error "Failed to install claudetop"
-            log_warning "You can install it manually later: npm install -g claudetop"
-        fi
+        npm install -g claudetop && log_success "claudetop installed" || log_warning "claudetop install failed — run manually: npm install -g claudetop"
     else
-        log_warning "npm not found. Please install Node.js first."
-        log_info "After installing Node.js, run: npm install -g claudetop"
+        log_warning "npm not found — install Node.js first, then: npm install -g claudetop"
     fi
 else
     log_success "claudetop already installed"
-    claudetop --version 2>&1 | head -1 | sed 's/^/  /' || true
 fi
 
-# 2. Install GitNexus
-log_info "Installing GitNexus (intelligent code navigation)..."
+# GitNexus
+log_info "Installing GitNexus (code intelligence)..."
 if ! command -v gitnexus &> /dev/null; then
     if command -v npm &> /dev/null; then
-        if npm install -g gitnexus; then
-            log_success "GitNexus installed successfully"
-            # Verify installation
-            if command -v gitnexus &> /dev/null; then
-                log_info "Verified: $(gitnexus --version 2>&1 | head -1 || echo 'GitNexus ready')"
-            else
-                log_warning "GitNexus installed but not in PATH. You may need to restart your shell."
-            fi
-        else
-            log_error "Failed to install GitNexus"
-            log_warning "You can install it manually later: npm install -g gitnexus"
-        fi
+        npm install -g gitnexus && log_success "GitNexus installed" || log_warning "GitNexus install failed — run manually: npm install -g gitnexus"
     else
-        log_warning "npm not found. Please install Node.js first."
-        log_info "After installing Node.js, run: npm install -g gitnexus"
+        log_warning "npm not found — run manually: npm install -g gitnexus"
     fi
 else
     log_success "GitNexus already installed"
-    gitnexus --version 2>&1 | head -1 | sed 's/^/  /' || true
 fi
 
-# 2b. Install code-review-graph (MCP server)
-log_info "Checking for code-review-graph (AI-powered code review)..."
-if command -v python3 &> /dev/null || command -v pip3 &> /dev/null; then
-    log_warning "code-review-graph is an MCP server - manual setup required"
-    echo
-    echo "  code-review-graph provides:"
-    echo "  • Impact radius analysis for blast-radius detection"
-    echo "  • Delta reviews (review only changes since last commit)"
-    echo "  • PR reviews with full structural context"
-    echo "  • Semantic code search with knowledge graphs"
-    echo
-    echo "  📥 To install code-review-graph:"
-    echo "     GitHub: https://github.com/tirth8205/code-review-graph"
-    echo "     Follow the MCP server setup instructions in the repository"
-    echo
-    echo "  Skills available after installation:"
-    echo "     /review-delta  - Review only recent changes"
-    echo "     /review-pr     - Review a PR or branch diff"
-    echo "     /build-graph   - Build/update the knowledge graph"
-    echo
+# RTK
+log_info "Installing RTK (terminal output compression)..."
+if command -v rtk &> /dev/null && rtk gain &> /dev/null; then
+    log_success "RTK already installed"
 else
-    log_warning "Python not found. code-review-graph requires Python 3.8+"
-    log_info "Install Python first, then visit: https://github.com/tirth8205/code-review-graph"
+    if command -v brew &> /dev/null; then
+        log_info "  Checking brew formula for RTK..."
+        # Install from tap to avoid name collision with 'Rust Type Kit'
+        if brew tap rtk-ai/rtk 2>/dev/null && brew install rtk-ai/rtk/rtk 2>/dev/null; then
+            log_success "RTK installed via brew tap"
+        elif brew install rtk 2>/dev/null; then
+            # Verify it's the right RTK
+            if rtk gain &> /dev/null; then
+                log_success "RTK installed"
+            else
+                log_warning "brew installed 'rtk' but 'rtk gain' failed — may be wrong package"
+                log_info "  See: https://github.com/rtk-ai/rtk for manual install"
+            fi
+        else
+            log_warning "brew install rtk failed — see: https://github.com/rtk-ai/rtk"
+        fi
+    else
+        log_warning "brew not found — install RTK manually: https://github.com/rtk-ai/rtk"
+    fi
 fi
 
-# 3. Configure opusplan model
-log_info "Configuring opusplan model (smart model switching)..."
-if cat > "$CLAUDE_DIR/settings.json" << 'EOF'
-{
+# RTK hook
+if command -v rtk &> /dev/null && rtk gain &> /dev/null; then
+    log_info "Initialising RTK PreToolUse hook..."
+    rtk init -g --auto-patch 2>/dev/null && log_success "RTK hook configured" || log_info "RTK hook may already be configured"
+fi
+
+# ── Stage 2: settings.json (model + plugins) ───────────────────
+echo
+echo "── Stage 2: Model switching + Claude plugins ───────────────"
+
+PLUGIN_CONFIG='{
   "model": "opusplan",
-  "enabledPlugins": {}
-}
-EOF
-then
-    # Validate JSON
-    if command -v jq &> /dev/null; then
-        if jq empty "$CLAUDE_DIR/settings.json" 2>/dev/null; then
-            log_success "Model configuration set to opusplan (validated)"
-        else
-            log_error "Invalid JSON in settings.json"
-            exit 1
-        fi
-    else
-        log_success "Model configuration set to opusplan"
-        log_info "Tip: Install jq for JSON validation: brew install jq"
-    fi
+  "enabledPlugins": {
+    "caveman@caveman": true,
+    "ponytail@ponytail": true,
+    "context-mode@context-mode": true,
+    "code-review-graph@code-review-graph": true
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {"source": {"source": "github", "repo": "JuliusBrussee/caveman"}},
+    "ponytail": {"source": {"source": "github", "repo": "DietrichGebert/ponytail"}},
+    "context-mode": {"source": {"source": "github", "repo": "mksglu/context-mode"}},
+    "code-review-graph": {"source": {"source": "github", "repo": "tirth8205/code-review-graph"}}
+  }
+}'
+
+log_info "Configuring settings.json (opusplan model + all plugins)..."
+if [[ -f "$CLAUDE_DIR/settings.json" ]] && command -v jq &> /dev/null; then
+    # Merge — preserve any existing user settings, add ours on top
+    jq --argjson new "$PLUGIN_CONFIG" '. * $new' "$CLAUDE_DIR/settings.json" > /tmp/cco_settings.json \
+        && mv /tmp/cco_settings.json "$CLAUDE_DIR/settings.json" \
+        && log_success "settings.json merged (existing settings preserved)" \
+        || { log_error "jq merge failed"; exit 1; }
+elif command -v jq &> /dev/null; then
+    echo "$PLUGIN_CONFIG" | jq . > "$CLAUDE_DIR/settings.json" \
+        && log_success "settings.json written"
 else
-    log_error "Failed to write settings.json"
-    exit 1
+    # No jq — write template directly
+    cp "$SCRIPT_DIR/templates/settings.json" "$CLAUDE_DIR/settings.json" \
+        && log_success "settings.json written (install jq for smarter merging: brew install jq)" \
+        || { log_error "Failed to write settings.json"; exit 1; }
 fi
 
-# 4. Set up global CLAUDE.md
-log_info "Creating global CLAUDE.md instructions..."
+log_info "Plugins enabled: caveman · ponytail · context-mode · code-review-graph"
+log_info "These load from GitHub on next Claude session — no separate install needed"
+
+# ── Stage 3: CLAUDE.md + permissions ──────────────────────────
+echo
+echo "── Stage 3: Instructions + permissions ─────────────────────"
+
 if cp "$SCRIPT_DIR/templates/CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md"; then
-    log_success "Global instructions configured"
-    log_info "  Location: $CLAUDE_DIR/CLAUDE.md"
+    log_success "Global CLAUDE.md configured"
 else
-    log_error "Failed to copy CLAUDE.md"
-    log_warning "You can copy it manually: cp templates/CLAUDE.md ~/.claude/"
+    log_warning "Failed to copy CLAUDE.md — copy manually: cp templates/CLAUDE.md ~/.claude/"
 fi
 
-# 5. Set up permissions
-log_info "Configuring safe command permissions..."
 if cp "$SCRIPT_DIR/templates/settings.local.json" "$CLAUDE_DIR/settings.local.json"; then
-    # Validate JSON if jq is available
-    if command -v jq &> /dev/null; then
-        if jq empty "$CLAUDE_DIR/settings.local.json" 2>/dev/null; then
-            log_success "Permissions configured (validated)"
-        else
-            log_error "Invalid JSON in settings.local.json"
-            exit 1
-        fi
-    else
-        log_success "Permissions configured"
-    fi
+    log_success "Permissions configured (settings.local.json)"
 else
-    log_error "Failed to copy settings.local.json"
-    log_warning "You can copy it manually: cp templates/settings.local.json ~/.claude/"
+    log_warning "Failed to copy settings.local.json"
 fi
 
-# 6. Set up GitNexus hooks
-log_info "Configuring GitNexus pre-hooks..."
-if cp "$SCRIPT_DIR/templates/hooks.json" "$CLAUDE_DIR/hooks.json"; then
-    # Validate JSON if jq is available
-    if command -v jq &> /dev/null; then
-        if jq empty "$CLAUDE_DIR/hooks.json" 2>/dev/null; then
-            log_success "GitNexus hooks configured (validated)"
-        else
-            log_error "Invalid JSON in hooks.json"
-            exit 1
-        fi
-    else
-        log_success "GitNexus hooks configured"
-    fi
-    # Only applies if GitNexus is installed
-    if ! command -v gitnexus &> /dev/null; then
-        log_info "  Note: Hooks will activate once GitNexus is installed"
-    fi
+# ── Stage 4: journal-recorder agent ───────────────────────────
+echo
+echo "── Stage 4: journal-recorder agent ─────────────────────────"
+log_info "Installing journal-recorder-agent (auto-saves every session)..."
+JOURNAL_URL="https://raw.githubusercontent.com/GauravRatnawat/journal-recorder-agent/main/journal-recorder.md"
+if curl -fsSL "$JOURNAL_URL" -o "$CLAUDE_DIR/agents/journal-recorder.md" 2>/dev/null; then
+    log_success "journal-recorder-agent installed → ~/.claude/agents/journal-recorder.md"
 else
-    log_error "Failed to copy hooks.json"
-    log_warning "You can copy it manually: cp templates/hooks.json ~/.claude/"
+    log_warning "Failed to download journal-recorder-agent (check internet / GitHub access)"
+    log_info "  Manual: curl -o ~/.claude/agents/journal-recorder.md $JOURNAL_URL"
 fi
 
-# 7. Install gstack skills (optional)
-log_info "Installing gstack automation skills..."
-
-# Check if gstack is already installed in Claude skills directory
+# ── Stage 5: gstack skills ────────────────────────────────────
+echo
+echo "── Stage 5: gstack automation skills ───────────────────────"
+log_info "Checking for gstack (/review, /qa, /ship, /browse, /retro)..."
 if [[ -d "$CLAUDE_DIR/skills/gstack" ]]; then
-    log_success "gstack skills already installed"
-# Check if included in this repo
+    log_success "gstack already installed"
 elif [[ -d "$SCRIPT_DIR/skills/gstack" ]]; then
     ln -sf "$SCRIPT_DIR/skills/gstack" "$CLAUDE_DIR/skills/gstack"
-    log_success "gstack skills linked from repo"
-# Check if user has it elsewhere
+    log_success "gstack linked from repo"
 elif [[ -d "$HOME/gstack" ]]; then
     if confirm "Found gstack in $HOME/gstack. Link it?"; then
         ln -sf "$HOME/gstack" "$CLAUDE_DIR/skills/gstack"
-        log_success "gstack skills linked from $HOME/gstack"
+        log_success "gstack linked"
     fi
 else
-    log_warning "gstack skills not found"
+    log_warning "gstack not found"
     echo
-    echo "  gstack provides automation skills: /review, /qa, /ship, /browse, /retro"
+    echo "  Install gstack for one-command workflows (/review, /qa, /ship):"
+    echo "    git clone https://github.com/garrytan/gstack ~/.claude/skills/gstack"
+    echo "    cd ~/.claude/skills/gstack && npm install"
     echo
-    echo "  📥 To install gstack:"
-    echo "     See: $SCRIPT_DIR/docs/GSTACK_INSTALL.md"
-    echo
-    echo "  You can install it later without affecting other optimizations."
-    echo
+    echo "  Full guide: $SCRIPT_DIR/docs/GSTACK_INSTALL.md"
 fi
 
-# 8. Install conversation-recorder
-log_info "Installing conversation-recorder skill..."
-if [[ -d "$SCRIPT_DIR/skills/conversation-recorder" ]]; then
-    ln -sf "$SCRIPT_DIR/skills/conversation-recorder" "$CLAUDE_DIR/skills/conversation-recorder"
-    log_success "conversation-recorder installed"
-else
-    log_warning "conversation-recorder skill not found"
-    log_info "You can create this skill or link it manually"
-fi
+# ── Stage 6: Optional checks ──────────────────────────────────
+echo
+echo "── Stage 6: Optional tools ─────────────────────────────────"
 
-# 9. Check for Conductor
-log_info "Checking for Conductor (workspace management)..."
+# Conductor
+log_info "Checking for Conductor (workspace isolation)..."
 if [[ -d "$HOME/Library/Application Support/com.conductor.app" ]]; then
     log_success "Conductor detected"
 else
-    log_warning "Conductor not detected"
-    log_info "Install Conductor for workspace isolation:"
-    echo "  Visit: https://conductor.app (if available)"
-    echo "  Or search for 'Conductor Claude' in your app store"
+    log_info "Conductor not found — optional but recommended: https://conductor.app"
 fi
 
-# 10. Check for Handy (voice-to-text)
+# Handy
 log_info "Checking for Handy (voice-to-text)..."
 if [[ -d "/Applications/Handy.app" ]]; then
-    log_success "Handy detected - voice-to-text available"
+    log_success "Handy detected — voice input ready"
 else
-    log_warning "Handy not detected"
-    log_info "Install Handy for faster input (FREE & open source):"
-    echo "  GitHub: https://github.com/handy-app/handy"
-    echo "  Website: https://handy.app"
-    echo "  Mac App Store: Search 'Handy Voice to Text'"
-    echo "  Benefit: 3x faster input, clearer prompts, fewer iterations"
+    log_info "Handy not found — optional: https://github.com/handy-app/handy"
 fi
 
-# Summary
+# BMAD
+log_info "Installing BMAD (agile AI dev framework)..."
+if [[ -d "_bmad" ]] || [[ -d "$SCRIPT_DIR/_bmad" ]]; then
+    log_success "BMAD already installed in this project"
+else
+    if command -v npx &> /dev/null; then
+        npx bmad-method install \
+            --modules bmm,bmb \
+            --tools claude-code \
+            --yes \
+            --directory "$SCRIPT_DIR" \
+            --user-name "${USER:-user}" 2>&1 | tail -5 \
+            && log_success "BMAD installed (49 skills → .claude/skills/)" \
+            || log_warning "BMAD install failed — run manually: npx bmad-method"
+    else
+        log_warning "npx not found — install BMAD manually: npx bmad-method"
+    fi
+fi
+
+# ── Summary ────────────────────────────────────────────────────
 echo
 echo "╔════════════════════════════════════════════════════════════╗"
 echo "║   Setup Complete!                                          ║"
@@ -304,35 +272,27 @@ echo "╚═══════════════════════�
 echo
 log_success "Configuration applied to $CLAUDE_DIR"
 echo
-echo "📊 Next Steps:"
+echo "📊 Verify installation:"
 echo
-echo "1. Monitor your costs:"
-echo "   ${BLUE}claudetop --today${NC}"
+echo "  ${BLUE}claudetop --today${NC}          # cost dashboard"
+echo "  ${BLUE}rtk gain${NC}                   # RTK compression stats"
+echo "  ${BLUE}gitnexus --version${NC}         # code intelligence"
 echo
-echo "2. Use automation skills:"
-echo "   ${BLUE}/review${NC}  - Review PR before landing"
-echo "   ${BLUE}/qa${NC}      - Test your application"
-echo "   ${BLUE}/ship${NC}    - Complete ship workflow"
-echo "   ${BLUE}/browse${NC}  - Test with headless browser"
-echo "   ${BLUE}/retro${NC}   - Weekly retrospective"
+echo "🔌 Plugins active on next Claude session:"
+echo "  ${GREEN}caveman${NC}       /caveman       response compression"
+echo "  ${GREEN}ponytail${NC}      /ponytail      lazy-efficient responses"
+echo "  ${GREEN}context-mode${NC}  ctx stats      tool output sandboxing"
+echo "  ${GREEN}code-review-graph${NC}  /code-review-graph:build-graph"
 echo
-echo "   ${BLUE}code-review-graph${NC} skills (if installed):"
-echo "   ${BLUE}/review-delta${NC} - Review only changes since last commit"
-echo "   ${BLUE}/review-pr${NC}    - Review PR with blast-radius analysis"
-echo "   ${BLUE}/build-graph${NC}  - Build/update code knowledge graph"
+echo "⚡ Automation skills (if gstack installed):"
+echo "  ${BLUE}/review${NC}   /qa   /ship   /browse   /retro"
 echo
-echo "3. (Optional) Install Handy for voice-to-text (FREE & open source):"
-echo "   ${BLUE}https://github.com/handy-app/handy${NC}"
-echo "   or Mac App Store → Search 'Handy'"
-echo "   See docs/VOICE_TO_TEXT.md for setup guide"
+echo "  ${GREEN}bmad${NC}          /bmad-help      49 skills installed"
 echo
-echo "4. Create a new Claude session to apply changes"
+echo "🚀 Start a new Claude session to activate all changes"
 echo
-echo "5. After 1 week, compare costs:"
-echo "   ${BLUE}claudetop --days 7 --summary${NC}"
+echo "📖 Docs: $SCRIPT_DIR/README.md"
+echo "❓ Help: $SCRIPT_DIR/FAQ.md"
 echo
-echo "📖 Documentation: $SCRIPT_DIR/README.md"
-echo "❓ Questions: $SCRIPT_DIR/FAQ.md"
-echo
-log_info "Expected result: ~70% cost reduction with enhanced productivity"
+log_info "Expected: 70–75% cost reduction"
 echo

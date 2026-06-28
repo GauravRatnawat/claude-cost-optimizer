@@ -4,15 +4,19 @@
 
 | Tool | Purpose | Install | Key Command | Deep Dive |
 |------|---------|---------|-------------|-----------|
-| opusplan | Auto-routes Opus/Sonnet/Haiku per task | Edit `~/.claude/settings.json` | `"model": "opusplan"` | — |
+| opusplan | Auto-routes Opus/Sonnet per task | Edit `~/.claude/settings.json` | `"model": "opusplan"` | — |
 | claudetop | Real-time token & cost dashboard | `npm install -g claudetop` | `claudetop --today` | — |
 | RTK | CLI output compression via PreToolUse hook | `brew install rtk && rtk init -g` | `rtk gain` | — |
 | Caveman | Response compression (~75% fewer output tokens) | `claude plugins install caveman@caveman` | `/caveman` | — |
+| Ponytail | Lazy-efficient responses, no over-engineering | `claude plugins install ponytail@ponytail` | `/ponytail` | — |
+| Context-mode | Sandboxes tool outputs — never enters context | `claude plugins install context-mode@context-mode` | `ctx stats` | — |
 | Conductor | Isolated workspaces per project | Download from conductor.app | GUI | — |
 | Handy | Voice-to-text prompt input | Download from handy.app | Push-to-talk | [VOICE_TO_TEXT.md](VOICE_TO_TEXT.md) |
 | journal-recorder-agent | Auto-saves sessions for resume | `curl` install (see below) | Automatic | — |
 | GitNexus | Graph-powered code intelligence | `npm install -g gitnexus` | `gitnexus rebuild` | — |
-| code-review-graph | AI code review MCP server | See GitHub repo | MCP tools | — |
+| Serena | Semantic code navigation MCP | Via MCP server config | MCP tools | — |
+| code-review-graph | AI code review with knowledge graph (Claude plugin) | `claude plugins install code-review-graph@code-review-graph` | `/code-review-graph:build-graph` | — |
+| BMAD | Structured agile AI dev (specialist roles) | `npx bmad-method` | Invoke by agent role | — |
 | gstack | Automation skill suite (/review /qa /ship etc.) | `git clone ...gstack ~/.claude/skills/gstack` | `/review` `/ship` | [GSTACK_INSTALL.md](GSTACK_INSTALL.md) |
 | ECC | 100+ skills, rules, agents, hooks | `npm install -g ecc-universal && ecc install` | `ecc doctor` | [ECC_COMMANDS.md](ECC_COMMANDS.md) |
 | agency-agents | 100+ role-specific agent personas | Copy persona files to `~/.claude/` | Per-persona | — |
@@ -23,7 +27,7 @@
 
 ### opusplan
 
-**Purpose:** Automatically switches between Opus (complex planning), Sonnet, and Haiku (execution) without manual model selection. Use expensive models only when reasoning depth is needed.
+**Purpose:** Automatically switches between Opus (complex planning) and Sonnet (execution) without manual model selection. Use expensive Opus only when reasoning depth is needed.
 
 ```bash
 # Enable in ~/.claude/settings.json
@@ -34,7 +38,7 @@
 
 **Key commands:**
 - Set once — no per-session commands needed
-- Override per-session: `/model opus`, `/model sonnet`, `/model haiku`
+- Override per-session: `/model opus`, `/model sonnet`
 
 ---
 
@@ -99,6 +103,45 @@ claude plugins install caveman@caveman
 - `stop caveman` or `normal mode` — deactivate
 
 See [Skills Guide](04-skills-guide.md) for full caveman skill reference.
+
+---
+
+### Ponytail Mode
+
+**Purpose:** Enforces lazy-efficient Claude responses — no speculative abstractions, no unrequested boilerplate, no over-engineering. Stops Claude from generating code and prose you didn't ask for. Compounds with Caveman for maximum output compression.
+
+```bash
+claude plugins install ponytail@ponytail
+```
+
+**Key commands:**
+- `/ponytail` — activate (defaults to `full`)
+- `/ponytail lite` — standard YAGNI enforcement
+- `/ponytail full` — ladder enforced, shortest diff wins
+- `/ponytail audit` — audit existing code for over-engineering
+- `stop ponytail` or `normal mode` — deactivate
+
+GitHub: https://github.com/DietrichGebert/ponytail
+
+---
+
+### Context-mode
+
+**Purpose:** Keeps tool output entirely out of your conversation context. Instead of reading raw bytes from `git diff`, `cargo test`, `docker logs`, etc. into your context window, Context-mode runs analysis in a sandbox and only surfaces the derived answer. Saves ~40% context per session on tool-heavy workflows.
+
+```bash
+claude plugins install context-mode@context-mode
+```
+
+**Key commands:**
+- `ctx stats` — view context savings for current session
+- `ctx search` — search indexed tool outputs
+- `ctx purge` — clear the knowledge base
+- `ctx doctor` — check installation health
+
+**How it works:** Use `ctx_batch_execute` instead of raw Bash for analysis tasks. The output bytes stay in the sandbox; only what your code prints enters the conversation.
+
+GitHub: https://github.com/mksglu/context-mode
 
 ---
 
@@ -172,17 +215,27 @@ See [Skills Guide](04-skills-guide.md) for GitNexus skill reference.
 
 ### code-review-graph
 
-**Purpose:** AI-powered code review MCP server with knowledge graph backing. Provides impact radius analysis (blast-radius detection), delta reviews, and PR reviews with structural context.
+**Purpose:** AI-powered code review Claude plugin with knowledge graph backing. Provides impact radius analysis (blast-radius detection), delta reviews, and PR reviews with structural context. Installs as a Claude plugin — no separate MCP server setup needed.
 
 ```bash
-# See repository for MCP server setup:
-# https://github.com/tirth8205/code-review-graph
+claude plugins install code-review-graph@code-review-graph
 ```
 
-**Key commands:** Exposed as MCP tools — available in Claude Code after server is configured:
+**First-time setup:** After install, build the graph for your project:
+```
+/code-review-graph:build-graph
+```
+
+**Key slash commands:**
+- `/code-review-graph:build-graph` — index/update the codebase knowledge graph
+- `/code-review-graph:review-delta` — review only changes since last commit (token-efficient)
+- `/code-review-graph:review-pr` — full PR review with blast-radius analysis
+
+**Key MCP tools (used automatically by Claude):**
 - `build_or_update_graph_tool` — index the codebase
 - `get_impact_radius_tool` — blast radius for a change
 - `get_review_context_tool` — smart context for code review
+- `semantic_search_nodes_tool` — semantic search across the graph
 
 GitHub: https://github.com/tirth8205/code-review-graph
 
@@ -249,6 +302,35 @@ Deep dive: [docs/ECC_COMMANDS.md](ECC_COMMANDS.md)
 **Cost impact:** 10–20% additional savings through better-targeted prompts.
 
 GitHub: https://github.com/msitarzewski/agency-agents
+
+---
+### BMAD (Breakthrough Method of Agile AI-driven Development)
+
+**Purpose:** Structured methodology for AI-driven software development. Provides specialist agent roles (Analyst, PM, Architect, Dev, Tech Writer, UX Designer) that give focused, role-specific context. Reduces clarification back-and-forth — a PM agent gives business-first answers, a Dev agent gives TDD-first answers. Less prompt soup, fewer correction loops, fewer tokens wasted.
+
+```bash
+cd your-project
+npx bmad-method
+```
+
+The CLI walks you through install, configures agent files, and creates `_bmad/` in your project.
+
+**Software development agents:**
+
+| Agent | Name | Focus |
+|-------|------|-------|
+| `bmad-agent-analyst` | Mary | Requirements, evidence-grounded findings |
+| `bmad-agent-pm` | John | Jobs-to-be-done, user value over templates |
+| `bmad-agent-architect` | Winston | Boring tech, stability, business-linked decisions |
+| `bmad-agent-dev` | Amelia | TDD discipline, red-green-refactor, no fluff |
+| `bmad-agent-tech-writer` | Paige | Structured docs, diagrams over walls of text |
+| `bmad-agent-ux-designer` | Sally | Empathy-first, edge-case rigor |
+
+**Cost optimization angle:** Specialist agents answer in role — no hedging across disciplines, no speculative features outside scope. Upfront planning artifacts (PRD, architecture, stories) prevent expensive mid-build rework. Combined with Ponytail mode for zero over-engineering.
+
+**Measured impact:** Fewer correction loops + structured artifacts = 15–25% additional savings on complex feature work.
+
+GitHub: https://github.com/bmad-code-org/BMAD-METHOD
 
 ---
 ← [How It Works](01-how-it-works.md) | [Configuration →](03-configuration.md)

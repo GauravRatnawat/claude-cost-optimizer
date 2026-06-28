@@ -1,4 +1,23 @@
 {
   "model": "opusplan",
-  "enabledPlugins": {}
+  "enabledPlugins": {
+    "caveman@caveman": true,
+    "ponytail@ponytail": true,
+    "context-mode@context-mode": true,
+    "code-review-graph@code-review-graph": true
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": { "source": "github", "repo": "JuliusBrussee/caveman" }
+    },
+    "ponytail": {
+      "source": { "source": "github", "repo": "DietrichGebert/ponytail" }
+    },
+    "context-mode": {
+      "source": { "source": "github", "repo": "mksglu/context-mode" }
+    },
+    "code-review-graph": {
+      "source": { "source": "github", "repo": "tirth8205/code-review-graph" }
+    }
+  }
 }

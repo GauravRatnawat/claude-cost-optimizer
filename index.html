@@ -325,7 +325,7 @@
               <span class="metric-label">cost reduction</span>
             </div>
             <div class="metric">
-              <span class="metric-num"><span>12</span></span>
+              <span class="metric-num"><span>16</span></span>
               <span class="metric-label">tools curated</span>
             </div>
             <div class="metric">
@@ -358,6 +358,11 @@
               <span class="t-line">  <span class="t-comment">make dev      </span>  <span class="t-ok">92%</span></span>
               <span class="t-gap"></span>
               <span class="t-line">  <span class="t-comment">average       </span>  <span class="t-num">51%</span>  <span class="t-comment">514K tokens saved</span></span>
+              <span class="t-gap"></span>
+              <span class="t-line"><span class="t-prompt">$</span> <span class="t-cmd">ctx stats</span></span>
+              <span class="t-gap"></span>
+              <span class="t-line">  <span class="t-comment">tool outputs    </span>  <span class="t-ok">1,847</span>  <span class="t-comment">sandboxed</span></span>
+              <span class="t-line">  <span class="t-comment">ctx saved       </span>  <span class="t-ok">~40%</span>  <span class="t-comment">per session</span></span>
             </div>
           </div>
         </div>
@@ -378,21 +383,21 @@
             <p class="s-card-num">01</p>
             <div class="s-card-icon">⚡</div>
             <p class="s-card-title">Smart Model Switching</p>
-            <p class="s-card-body">opusplan automatically routes to the right model. Opus only for planning. Sonnet and Haiku handle everything else.</p>
+            <p class="s-card-body">opusplan automatically routes to the right model. Opus only for planning. Sonnet handles everything else.</p>
             <span class="s-card-savings">20–30% savings</span>
           </div>
           <div class="s-card">
             <p class="s-card-num">02</p>
             <div class="s-card-icon">🗜</div>
             <p class="s-card-title">Token Compression</p>
-            <p class="s-card-body">RTK strips terminal output before Claude reads it. Caveman mode compresses Claude's replies. Both directions cut.</p>
-            <span class="s-card-savings">40–50% savings</span>
+            <p class="s-card-body">RTK strips terminal output. Context-mode sandboxes tool outputs — raw bytes never enter context. Caveman + Ponytail compress replies. Every direction cut.</p>
+            <span class="s-card-savings">50–60% savings</span>
           </div>
           <div class="s-card">
             <p class="s-card-num">03</p>
             <div class="s-card-icon">🔁</div>
             <p class="s-card-title">Workflow Automation</p>
-            <p class="s-card-body">gstack skills collapse multi-step workflows. /review, /qa, /ship — 50+ Claude queries become one intent.</p>
+            <p class="s-card-body">gstack skills collapse multi-step workflows. /review, /qa, /ship — 50+ Claude queries become one intent. BMAD structures dev with specialized agent roles, cutting clarification loops.</p>
             <span class="s-card-savings">10–20% + productivity</span>
           </div>
         </div>
@@ -421,7 +426,7 @@
             <div class="stage-step"><strong>2</strong>Stage</div>
             <div class="stage-body">
               <p class="stage-title">Token compression · 30 min</p>
-              <p class="stage-desc">Install RTK for terminal output compression. Enable Caveman mode to compress Claude's responses. Measured 51% average savings.</p>
+              <p class="stage-desc">Install RTK for terminal output compression. Install context-mode to sandbox tool outputs. Enable Caveman + Ponytail for compressed responses. Measured 51%+ average savings.</p>
             </div>
             <span class="stage-tag">→ +40–50% more</span>
           </div>
@@ -459,8 +464,8 @@
           </div>
           <div class="num-card">
             <div class="num-big">~75%</div>
-            <p class="num-title">Caveman output savings</p>
-            <p class="num-sub">Drops articles, fillers, pleasantries from Claude's responses. Same technical accuracy.</p>
+            <p class="num-title">Output token savings</p>
+            <p class="num-sub">Caveman + Ponytail drop articles, fillers, pleasantries, and over-engineering from responses. Same technical accuracy.</p>
           </div>
         </div>
 
@@ -505,36 +510,39 @@
 
         <div class="install-grid">
           <div class="i-card">
-            <p class="i-card-title">Automated</p>
-            <p class="i-card-sub">Installs all tools, copies config, links skills.</p>
-            <div class="code-block"><code><span class="c-comment"># clone</span>
-<span class="c-cmd">git clone https://github.com/GauravRatnawat/</span>
+            <p class="i-card-title">One command</p>
+            <p class="i-card-sub">Installs all 16 tools, configures model switching, enables all plugins.</p>
+            <div class="code-block"><code><span class="c-cmd">git clone https://github.com/GauravRatnawat/</span>
 <span class="c-cmd">  claude-cost-optimizer</span>
-<span class="c-cmd">cd claude-cost-optimizer</span>
+<span class="c-cmd">cd claude-cost-optimizer && ./setup.sh</span>
 
-<span class="c-comment"># run</span>
-<span class="c-cmd">./setup.sh</span>
-
-<span class="c-comment"># verify</span>
-<span class="c-cmd">claudetop</span>        <span class="c-ok">✓ running</span>
-<span class="c-cmd">rtk --version</span>    <span class="c-ok">✓ installed</span></code></div>
+<span class="c-comment"># installs:</span>
+<span class="c-ok">✓</span> <span class="c-str">claudetop</span>     cost monitoring
+<span class="c-ok">✓</span> <span class="c-str">rtk</span>           terminal compression
+<span class="c-ok">✓</span> <span class="c-str">gitnexus</span>      code intelligence
+<span class="c-ok">✓</span> <span class="c-str">caveman</span>       response compression
+<span class="c-ok">✓</span> <span class="c-str">ponytail</span>      efficient responses
+<span class="c-ok">✓</span> <span class="c-str">context-mode</span>  output sandboxing
+<span class="c-ok">✓</span> <span class="c-str">code-review-graph</span>  AI code review</code></div>
           </div>
           <div class="i-card">
-            <p class="i-card-title">Manual</p>
-            <p class="i-card-sub">Step-by-step if you want control over each piece.</p>
-            <div class="code-block"><code><span class="c-comment"># cost monitoring</span>
-<span class="c-cmd">npm install -g claudetop</span>
+            <p class="i-card-title">What runs</p>
+            <p class="i-card-sub">Full install sequence — nothing manual.</p>
+            <div class="code-block"><code><span class="c-comment"># Stage 1 — npm tools</span>
+<span class="c-cmd">npm install -g claudetop gitnexus</span>
 
-<span class="c-comment"># model switching</span>
-<span class="c-comment"># copy templates/settings.json</span>
-<span class="c-comment"># → ~/.claude/settings.json</span>
-
-<span class="c-comment"># token compression</span>
+<span class="c-comment"># Stage 2 — RTK compression</span>
 <span class="c-cmd">brew install rtk && rtk init -g</span>
 
-<span class="c-comment"># code intelligence</span>
-<span class="c-cmd">npm install -g gitnexus</span>
-<span class="c-cmd">npx gitnexus analyze</span></code></div>
+<span class="c-comment"># Stage 3 — Claude plugins (via settings.json)</span>
+<span class="c-comment"># caveman · ponytail · context-mode</span>
+<span class="c-comment"># code-review-graph</span>
+
+<span class="c-comment"># Stage 4 — journal-recorder agent</span>
+<span class="c-comment"># Stage 5 — gstack skills</span>
+
+<span class="c-comment"># BMAD (interactive, per-project):</span>
+<span class="c-cmd">npx bmad-method</span></code></div>
           </div>
         </div>
       </section>
