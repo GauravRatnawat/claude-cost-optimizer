@@ -69,34 +69,7 @@ ln -s /path/to/your/projects/gstack ~/.claude/skills/gstack
 
 ### Method 3: Create Your Own Skills
 
-If gstack isn't available, you can create similar skills yourself:
-
-```bash
-mkdir -p ~/.claude/skills/my-automation
-cd ~/.claude/skills/my-automation
-```
-
-Create `SKILL.md`:
-```markdown
----
-name: my-review
-version: 1.0.0
-description: Custom PR review workflow
-allowed-tools:
-  - Bash
-  - Read
-  - Grep
----
-
-# PR Review Workflow
-
-Steps:
-1. Get PR diff: `gh pr diff <number>`
-2. Analyze changes for common issues
-3. Generate review comments
-```
-
-See [CREATING_SKILLS.md](./CREATING_SKILLS.md) for a complete guide.
+Need custom review skill? Use [shared review example](CREATING_SKILLS.md#example-simple-pr-review-skill), then [check skill works](CREATING_SKILLS.md#test-your-skill).
 
 ## Verification
 
@@ -170,19 +143,7 @@ gh pr diff <number> | pbcopy
 ```
 
 ### Simple Custom Skills
-Create basic skills for your most common tasks:
-```bash
-mkdir -p ~/.claude/skills/quick-review
-cat > ~/.claude/skills/quick-review/SKILL.md << 'EOF'
----
-name: quick-review
-version: 1.0.0
-description: Quick PR review
-allowed-tools: [Bash, Read]
----
-Run: gh pr diff and analyze for obvious issues
-EOF
-```
+Use [shared review example](CREATING_SKILLS.md#example-simple-pr-review-skill). Keep tool scope small; follow [skill checks](CREATING_SKILLS.md#testing-your-skills).
 
 ### Use Other Automation
 - Pre-commit hooks for code quality
