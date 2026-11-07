@@ -344,40 +344,23 @@ claudetop --days 14 --sort cost
 
 ## Step 5: ECC — Everything Claude Code
 
-> See [ECC_COMMANDS.md](./ECC_COMMANDS.md) for the full reference.
+See [ECC reference](ECC_COMMANDS.md) for full command list.
 
 ### Quick install
-```bash
-ecc install --target claude java kotlin
-ecc install --target claude --profile developer java kotlin
-ecc install --target claude --profile full
-```
+
+See [ECC install steps](ECC_COMMANDS.md#step-1-install-content-into-claude-code).
 
 ### Manage
-```bash
-ecc list-installed
-ecc doctor
-ecc repair
-ecc repair --dry-run
-ecc uninstall --target claude --dry-run
-ecc uninstall --target claude
-```
+
+See [installed content](ECC_COMMANDS.md#step-3-verify-installation), [health checks](ECC_COMMANDS.md#step-4-health--diagnostics), [repair](ECC_COMMANDS.md#step-5-repair-drifted-files), [uninstall](ECC_COMMANDS.md#uninstall).
 
 ### Explore
-```bash
-ecc plan --list-profiles
-ecc plan --list-modules
-ecc plan --list-components
-ecc plan --profile developer --target claude
-```
+
+See [plan and inspect](ECC_COMMANDS.md#step-2-plan--inspect-before-installing).
 
 ### Sessions & status
-```bash
-ecc sessions
-ecc sessions --limit 10
-ecc status
-ecc session-inspect claude:latest
-```
+
+See [session and state checks](ECC_COMMANDS.md#maintenance--monitoring).
 
 ---
 

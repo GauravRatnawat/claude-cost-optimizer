@@ -45,36 +45,7 @@ Controls which model Claude Code uses by default. The template sets `opusplan` �
 
 Pre-approves safe, read-oriented shell commands so Claude Code doesn't prompt for permission on every invocation. Without this file, Claude asks before every `git diff` or `ls` — which is friction with no security benefit for read-only commands.
 
-```json
-{
-  "permissions": {
-    "allow": [
-      "Bash(git status:*)",
-      "Bash(git diff:*)",
-      "Bash(git log:*)",
-      "Bash(npm install:*)",
-      "Bash(npm test:*)",
-      "Bash(npm run:*)",
-      "Bash(pytest:*)",
-      "Bash(cargo test:*)",
-      "Bash(make test:*)",
-      "Bash(kubectl get:*)",
-      "Bash(kubectl describe:*)",
-      "Bash(docker ps:*)",
-      "Bash(docker logs:*)",
-      "Bash(curl:*)",
-      "Bash(wget:*)",
-      "Bash(which:*)",
-      "Bash(ls:*)",
-      "Bash(pwd:*)",
-      "Bash(echo:*)",
-      "Bash(cat:*)",
-      "Bash(head:*)",
-      "Bash(tail:*)"
-    ]
-  }
-}
-```
+See [permission template](../templates/settings.local.json) for full allow list. Check each entry suits your work.
 
 All entries are read-only or side-effect-free operations. Destructive commands (`git push`, `rm`, `kubectl delete`) are intentionally excluded — those still require explicit approval.
 
@@ -88,26 +59,7 @@ All entries are read-only or side-effect-free operations. Destructive commands (
 
 Registers a `PreToolUse` hook that fires the GitNexus pre-search script before every `Grep`, `Glob`, or `Bash` tool call. GitNexus intercepts the call, checks the codebase graph for relevant files, and surfaces them — reducing exploratory search queries.
 
-```json
-{
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": {
-          "tool_name": "Grep|Glob|Bash"
-        },
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \"$(npm root -g)/gitnexus/hooks/claude/gitnexus-hook.cjs\"",
-            "timeout": 8000
-          }
-        ]
-      }
-    ]
-  }
-}
-```
+See [GitNexus hook template](../templates/hooks.json) for matcher, command, timeout.
 
 **Install location:** `~/.claude/hooks.json`
 

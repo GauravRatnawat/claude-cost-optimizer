@@ -1,213 +1,94 @@
 # Quick Start Guide
 
-Get up and running with cost-optimized Claude Code in 5 minutes.
+Run setup, check tools, then follow linked guides.
 
 ## Prerequisites Check
 
 ```bash
-# Check if you have the required tools
-claude --version    # Should show Claude Code CLI
-node --version      # Should show Node.js v16+
-npm --version       # Should show npm v7+
-git --version       # Should show git v2+
+claude --version    # Need Claude Code CLI
+node --version      # Need Node.js 18+, see README
+npm --version       # Need npm v7+
+git --version       # Need Git v2+
 ```
 
-If any are missing:
-- Claude Code: `npm install -g @anthropic-ai/claude-code`
-- Node.js: Download from [nodejs.org](https://nodejs.org)
-- Git: Download from [git-scm.com](https://git-scm.com)
+Missing tools? Install Claude Code with `npm install -g @anthropic-ai/claude-code`. Get [Node.js](https://nodejs.org) and [Git](https://git-scm.com). See [README prerequisites](README.md#prerequisites).
 
 ## Installation (Automated)
 
-```bash
-# 1. Get the setup project
-git clone https://github.com/your-username/claude-cost-optimizer.git
-cd claude-cost-optimizer
-
-# 2. Run automated setup (backs up existing config)
-./setup.sh
-
-# 3. Done! Start a new Claude session
-claude
-```
+Follow [README install steps](README.md#install), then start new session with `claude`.
 
 ## Installation (Step-by-Step)
 
-Prefer to see each step? Use interactive mode:
-
-```bash
-./setup.sh --interactive
-```
-
-This will ask for confirmation before each change.
+Use `./setup.sh --interactive` for backup and local gstack link prompts. For each manual step, see [Manual Setup](MANUAL_SETUP.md).
 
 ## Verify Installation
 
 ```bash
-# 1. Check cost monitoring
-claudetop --today
-
-# Expected output:
-# Today (Mar 19): XXM tokens · $XX.XX · X sessions · XXX queries
-
-# 2. Check configuration
-cat ~/.claude/settings.json
-
-# Expected output:
-# {
-#   "model": "opusplan",
-#   "enabledPlugins": {}
-# }
-
-# 3. Check skills
-ls ~/.claude/skills/
-
-# Expected to see:
-# gstack/
-# conversation-recorder/
+claudetop --today              # Need cost dashboard with tokens, cost, sessions, queries
+cat ~/.claude/settings.json    # Check model is opusplan and enabledPlugins exists
+ls ~/.claude/skills/           # Check installed skill dirs
 ```
+
+Look for `gstack/` and `conversation-recorder/` if installed. See [README checks](README.md#getting-started) for RTK and plugin checks.
 
 ## First Steps
 
 ### 1. Understand Your Baseline
 
-Before optimizing, know your starting point:
-
-```bash
-# Check your last 7 days (before optimization)
-claudetop --days 7 --summary
-```
-
-Example output:
-```
-Last 7 days: 450M tokens · $540.00 · avg $77/day
-```
+Run `claudetop --days 7 --summary` before changes. Save token and cost totals for later check.
 
 ### 2. Start Using Automation
 
-Start a new Claude session and try a skill:
-
-```bash
-claude
-
-# In Claude session:
-> /review
-
-# This will review your current branch for issues
-```
+Start `claude`, then try `/review` in chat if gstack installed. See [gstack setup](docs/GSTACK_INSTALL.md#verification).
 
 ### 3. Monitor Daily
 
-Add to your daily routine:
-
-```bash
-# Morning: Check yesterday's costs
-claudetop --today
-
-# Set a reminder or add to your shell profile:
-echo 'alias claude-costs="claudetop --today"' >> ~/.bashrc
-```
+Run `claudetop --today`. More commands in [cost reference](docs/ALL_COMMANDS.md#step-4-claudetop--cost-monitoring).
 
 ## Week 1 Challenge
 
-For maximum learning, try this progression:
-
 ### Day 1: Setup & Baseline
-- Run setup
-- Check baseline: `claudetop --days 7`
-- Use Claude normally
+
+Use [README stages](README.md#getting-started), save baseline, work as usual.
 
 ### Day 2-3: Learn Skills
-- Use `/review` before each PR
-- Use `/qa` to test features
-- Use `/browse` to verify deployments
+
+Try `/review`, `/qa`, `/browse`. See [workflow commands](docs/ALL_COMMANDS.md#step-6-gstack-skills-in-claude-sessions).
 
 ### Day 4-5: Optimize Permissions
-- Note which commands you approve repeatedly
-- Add them to `~/.claude/settings.local.json`
-- Restart Claude session
+
+See [permission guide](docs/03-configuration.md#layer-2-permissions-settingslocaljson). Add only commands you trust, then restart session.
 
 ### Day 5-6: ECC Skills Harness (Optional)
-- Install everything-claude-code: `npm install -g ecc-universal`
-- Apply for your languages: `ecc install --target claude java kotlin`
-- Unlocks: `kotlin-review`, `springboot-tdd`, `gradle-build`, `kotlin-test`, and 100+ more skills
-- Full command reference: [docs/ECC_COMMANDS.md](./docs/ECC_COMMANDS.md)
+
+See [ECC install guide](docs/ECC_COMMANDS.md#step-1-install-content-into-claude-code).
 
 ### Day 7: Workspace Organization
-- Install Conductor (if available)
-- Create separate workspaces for different projects
-- Use conversation-recorder to save context
+
+See [Conductor guide](docs/02-tools-reference.md#conductor) for optional workspaces. Use session recorder for saved context.
 
 ### End of Week: Measure Results
 
-```bash
-# Compare Week 1 to baseline
-claudetop --days 14
-
-# Expected: 50-70% cost reduction
-```
+Run `claudetop --days 14`. Compare costs with saved baseline.
 
 ## Quick Reference
 
 ### Daily Commands
 
-```bash
-# Check today's costs
-claudetop --today
-
-# Start Claude session
-claude
-
-# In session, use skills:
-/review   # Review PR
-/qa       # Test app
-/ship     # Ship feature
-/browse   # Test with browser
-/retro    # Weekly retrospective
-
-# code-review-graph skills (if installed):
-/review-delta  # Review only changes since last commit
-/review-pr     # Review PR with blast-radius analysis
-/build-graph   # Build/update code knowledge graph
-
-# journal-recorder-agent (if installed — triggers automatically):
-# "we're done" or "thanks" → records session to ~/claude-journal/
-```
+See [workflow commands](docs/ALL_COMMANDS.md#step-6-gstack-skills-in-claude-sessions) and [cost commands](docs/ALL_COMMANDS.md#step-4-claudetop--cost-monitoring).
 
 ### Weekly Commands
 
-```bash
-# Weekly cost report
-claudetop --days 7
-
-# Weekly retrospective (in Claude session)
-/retro
-```
+Run `claudetop --days 7`; try `/retro` in Claude chat.
 
 ### Monthly Commands
 
-```bash
-# Monthly budget check
-claudetop --days 30 --summary
-
-# Update skills (if using gstack)
-cd ~/.claude/skills/gstack
-git pull
-```
+Run `claudetop --days 30 --summary`. For gstack updates, see [update steps](docs/GSTACK_INSTALL.md#stay-updated).
 
 ## Next Steps
 
-1. **Full command reference**: [docs/ALL_COMMANDS.md](./docs/ALL_COMMANDS.md) — every command for every tool
-2. **Read the FAQ**: Common questions answered in [FAQ.md](./FAQ.md)
-3. **Customize**: Edit templates in `templates/` to match your workflow
-4. **Contribute**: Share your cost savings in [CONTRIBUTING.md](./CONTRIBUTING.md)
+See [All Commands](docs/ALL_COMMANDS.md), [FAQ](FAQ.md), [config templates](templates/), [Contributing](CONTRIBUTING.md).
 
 ## Support
 
-- Issues: Open a GitHub issue
-- Questions: Check [FAQ.md](./FAQ.md)
-- Discussions: GitHub Discussions
-
----
-
-**Remember**: The goal is 70% cost reduction. Track your progress weekly and adjust!
+Check [FAQ](FAQ.md), then use repo Issues or Discussions.
